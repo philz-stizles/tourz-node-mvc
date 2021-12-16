@@ -1,1 +1,1 @@
-# tourz-node-mvc
+# Tourz Naija Platform
