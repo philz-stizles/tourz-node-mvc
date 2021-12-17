@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - '10'
+sudo: false
+
+branches:
+  only:
+    - main
+
+cache:
+  directories:
+    - node_modules
+
+deploy:
+  provider: heroku
+  skip_cleanup: true
+  keep-history: true
+  api_key: HEROKU_API_KEY
+  app: your_heroku_app_name
