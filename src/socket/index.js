@@ -22,7 +22,7 @@ module.exports = server => {
     socket.on('message:read', readMessage);
 
     // Whenever someone disconnects this piece of code executed
-    socket.on('disconnect', function () {
+    socket.on('disconnect', () => {
       console.log('A user disconnected');
     });
   };
