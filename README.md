@@ -145,6 +145,14 @@ Install packages:
 
 aws-sdk: npm install aws-sdk
 
+## SMS
+
+npm install twilio
+
+## Caching
+
+npm install ioredis
+
 ## Pre-Deployment
 
 - Ensure .gitignore with node_modules, .env(secrets) on both client and server
