@@ -7,8 +7,8 @@ export const signupValidator = (
   _: Response,
   next: NextFunction
 ) => {
-  const { email, name, password, confirmPassword } = req.body;
-  if (!email || !name || !password || !confirmPassword)
+  const { email, username, password, confirmPassword } = req.body;
+  if (!email || !username || !password || !confirmPassword)
     return next(new AppError(400, 'Please fill all the required fields'));
 
   next();

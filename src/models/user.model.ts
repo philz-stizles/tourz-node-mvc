@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import { Model, Schema, model, Types } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import validator from 'validator';
+import { generateToken } from '@src/utils/auth.utils';
 
 interface IUserToken {
   token: string;
@@ -10,7 +11,7 @@ interface IUserToken {
 // Create an interface representing a document in MongoDB.
 export interface IUser {
   _id: Types.ObjectId;
-  fullname: string;
+  fullname?: string;
   username: string;
   email: string;
   avatar?: string;
@@ -22,11 +23,12 @@ export interface IUser {
   isActive: boolean;
   roles: string[];
   tokens: IUserToken[];
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 export interface IUserDocument extends IUser, Document {
+  createdAt: Date;
+  updatedAt: Date;
+  generateToken: () => string;
   comparePassword: (candidatePassword: string) => Promise<boolean>;
   createPasswordResetToken: () => string;
   isPasswordChangedAfterTokenGen: (issuedAt: number) => boolean;
@@ -37,23 +39,21 @@ export interface IUserModel extends Model<IUserDocument> {
 }
 
 // Put as much business logic in the models to keep the controllers as simple and lean as possible
-const userSchema = new Schema<IUser, IUserModel>(
+const userSchema = new Schema(
   {
     fullname: {
       type: String,
-      required: [true, 'A user must have a name'],
       trim: true,
-      unique: true,
     },
     username: {
       type: String,
-      required: [true, 'A user must have a name'],
+      required: [true, 'Username is required'],
       trim: true,
       unique: true,
     },
     email: {
       type: String,
-      required: [true, 'A user must have an email'],
+      required: [true, 'Email is required'],
       trim: true,
       unique: true,
       lowercase: true,
@@ -116,6 +116,10 @@ userSchema.pre('save', async function (next) {
 //   this.find({ isActive: { $ne: false } }); // Not equal to false is different from is equal to true
 //   next();
 // });
+
+userSchema.methods.generateToken = function () {
+  return generateToken({ id: this.id, email: this.email, roles: this.roles });
+};
 
 userSchema.methods.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password as string);

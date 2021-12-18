@@ -26,7 +26,7 @@ type Location = {
   day: number;
 };
 
-export interface ITourDocument extends Document {
+export interface ITour {
   name: string;
   description: string;
   summary: string;
@@ -49,10 +49,12 @@ export interface ITourDocument extends Document {
   modifiedAt: any;
 }
 
+export interface ITourDocument extends ITour, Document {}
+
 interface ITourModel extends Model<ITourDocument> {}
 
 // Put as much business logic in the models to keep the controllers as simple and lean as possible
-const tourSchema = new Schema<ITourDocument, ITourModel>(
+const tourSchema = new Schema(
   {
     name: {
       type: String,

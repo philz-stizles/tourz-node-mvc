@@ -1,24 +1,22 @@
-import mongoose from 'mongoose';
+import mongoose, { Connection } from 'mongoose';
 
-const mongooseConnect = async (dbUri: string): Promise<void> => {
-  console.log(dbUri);
+const mongooseConnect = async (url: string): Promise<void> => {
   try {
-    await mongoose.connect(dbUri, {});
-    console.log('after connect');
+    const db = mongoose.connection as Connection;
 
-    // const db = mongoose.connection as Connection;
+    db.once('open', async () => {
+      console.log('Connected to database');
+    });
 
-    // db.once('open', async () => {
-    //   console.log('Connected to database');
-    // });
+    db.on('error', () => {
+      console.log('Error connecting to database');
+    });
 
-    // db.on('error', () => {
-    //   console.log('Error connecting to database');
-    // });
+    db.on('error', () => {
+      console.log('Disconnected from database');
+    });
 
-    // db.on('error', () => {
-    //   console.log('Disconnected from database');
-    // });
+    await mongoose.connect(url);
   } catch (error: any | unknown) {
     console.log('Error connecting to database', error.message);
   }

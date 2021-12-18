@@ -8,16 +8,22 @@ import User from '@src/models/user.model';
 import { createAndSendTokenWithCookie } from '@src/utils/api.utils';
 
 export const signup = catchAsync(async (req: Request, res: Response) => {
-  const { name, email, password, confirmPassword } = req.body;
+  const { username, email, password, confirmPassword } = req.body;
 
-  const newUser = await User.create({ name, email, password, confirmPassword });
+  const newUser = await User.create({
+    username,
+    email,
+    password,
+    confirmPassword,
+  });
 
-  const token = generateToken(newUser);
+  const token = newUser.generateToken();
+  console.log(token);
 
   res.status(201).json({
     status: true,
     data: {
-      loggedInUser: newUser,
+      // loggedInUser: newUser,
       token,
     },
     message: 'created successfully',

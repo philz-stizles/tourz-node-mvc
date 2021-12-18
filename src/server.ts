@@ -12,8 +12,6 @@ const startUp = async (expressApp: Express) => {
   const DB_PASSWORD = process.env.DB_PASSWORD;
   const ENV_PORT = process.env.PORT;
 
-  console.log(DB_HOST, DB_PASSWORD);
-
   if (!JWT_AUTH) {
     throw new Error('JWT_AUTH_SECRET must be defined');
   }

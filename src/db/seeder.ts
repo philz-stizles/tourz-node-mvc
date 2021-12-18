@@ -1,27 +1,19 @@
-const path = require('path');
-const fs = require('fs');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const Tour = require('../models/tour.model');
-const Review = require('../models/review.model');
-const User = require('../models/user.model');
+import path from 'path';
+import fs from 'fs';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import Tour from '../models/tour.model';
+import Review from '../models/review.model';
+import User from '../models/user.model';
 
 dotenv.config({ path: './config.env' });
 
-// const DB = process.env.DATABASE_LOCAL
-const DB = process.env.DATABASE_REMOTE.replace(
-  '<PASSWORD>',
-  process.env.DATABASE_PASSWORD
-);
+if (!process.env.DB_PASSWORD || !process.env.DB_HOST) {
+  throw new Error('You must');
+}
+const DB = process.env.DB_HOST.replace('<PASSWORD>', process.env.DB_PASSWORD);
 
-mongoose
-  .connect(DB, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log('DB connection successful!'));
+mongoose.connect(DB).then(() => console.log('DB connection successful!'));
 
 // READ JSON FILE
 const tours = JSON.parse(
