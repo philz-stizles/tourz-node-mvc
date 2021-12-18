@@ -1,0 +1,11 @@
+{
+    "semi": true,
+    "useTabs": false,
+    "tabWidth": 2,
+    "printWidth": 80,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "arrowParens": "avoid",
+    "bracketSpacing": true,
+    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }]
+}
