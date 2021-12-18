@@ -50,6 +50,38 @@ exports.authenticate = catchAsync(async (req, res, next) => {
   next();
 });
 
+exports.isAuthenticatedWith2FA =
+  (omitSecondFactor = false) =>
+  async (request, response, next) => {
+    const cookies = request.cookies;
+    if (cookies && cookies.Authorization) {
+      const secret = process.env.JWT_SECRET;
+      try {
+        const verificationResponse = jwt.verify(cookies.Authorization, secret);
+        const { _id: id, isSecondFactorAuthenticated } = verificationResponse;
+        const user = await userModel.findById(id);
+        if (user) {
+          if (
+            !omitSecondFactor &&
+            user.isTwoFactorAuthenticationEnabled &&
+            !isSecondFactorAuthenticated
+          ) {
+            next(new WrongAuthenticationTokenException());
+          } else {
+            request.user = user;
+            next();
+          }
+        } else {
+          next(new WrongAuthenticationTokenException());
+        }
+      } catch (error) {
+        next(new WrongAuthenticationTokenException());
+      }
+    } else {
+      next(new AuthenticationTokenMissingException());
+    }
+  };
+
 exports.authorize = (...authorizedUsers) =>
   catchAsync(async (req, _, next) => {
     if (!authorizedUsers.includes(req.user.role)) {
@@ -95,6 +127,18 @@ exports.authenticateView = catchAsync(async (req, res, next) => {
     } catch (error) {
       return next();
     }
+  }
+
+  next();
+});
+
+exports.hasBooking = catchAsync(async (req, _, next) => {
+  const { tour } = req.body;
+  const existingBooking = await Booking.findOne({ tour, creator: req.user.id });
+  if (!existingBooking) {
+    return next(
+      new AppError('You do not have the permission to perform this action', 403)
+    );
   }
 
   next();

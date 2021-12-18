@@ -1,9 +1,9 @@
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 
-exports.generateToken = user =>
+exports.generateToken = payload =>
   jwt.sign(
-    { id: user._id },
+    payload,
     process.env.JWT_AUTH_SECRET, // The secret should atleast 32 characters long
     { expiresIn: process.env.JWT_AUTH_EXPIRES_IN }
   );

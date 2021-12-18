@@ -5,7 +5,10 @@ const { catchAsync } = require('../utils/api.utils');
 const crypto = require('crypto');
 const User = require('../models/user.model');
 const { createAndSendTokenWithCookie } = require('../utils/api.utils');
+const { getTwoFactorAuthenticationCode, verifyTwoFactorAuthenticationCode } =
+  '../services/security/auth.services.js';
 
+// Authentication ***************************************************************** |
 exports.signup = catchAsync(async (req, res) => {
   const { username, fullname, email, password, confirmPassword } = req.body;
 
@@ -51,6 +54,102 @@ exports.login = catchAsync(async (req, res, next) => {
   createAndSendTokenWithCookie(existingUser, 200, req, res, 'Login successful');
 });
 
+exports.loginWith2FA = catchAsync(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  // Check if user exists
+  const existingUser = await User.findOne({ email }).select('+password'); // There is difference between adding
+  // +password and just password. +password will add to already visible fields if not already visible
+  // password without the + would select just that field as visible and will continue to include any new fields that
+  // you specify to the list of included fields. The _id is always returned accept you specify otherwise
+  // e.g .select('+password -_id')
+  if (!existingUser)
+    return next(new AppError('Incorrect email or password', 401));
+
+  // Check if password matches
+  const isMatch = await existingUser.comparePassword(password);
+  if (!isMatch) return next(new AppError('Incorrect email or password', 401));
+
+  // Generate token and set cookie.
+  existingUser.setCookieToken(req, res);
+
+  // If 2FA.
+  if (existingUser.isTwoFactorAuthenticationEnabled) {
+    res.json({
+      status: true,
+      data: {
+        isTwoFactorAuthenticationEnabled: true,
+      },
+      message: 'login with 2FA',
+    });
+  } else {
+    res.json({
+      status: true,
+      data: {
+        ...existingUser.toObject(),
+        isTwoFactorAuthenticationEnabled: false,
+      },
+      message: 'login successfully',
+    });
+  }
+});
+
+// 2FA ************************************************************************* |
+
+exports.turnOnTwoFactorAuth = catchAsync(async (req, res, next) => {
+  const { twoFactorAuthenticationCode } = req.body;
+  const user = req.user;
+  const isCodeValid = await verifyTwoFactorAuthenticationCode(
+    twoFactorAuthenticationCode,
+    user
+  );
+  if (!isCodeValid) {
+    return next(new AppError('Incorrect email or password', 401));
+  }
+
+  await User.findByIdAndUpdate(user._id, {
+    isTwoFactorAuthenticationEnabled: true,
+  });
+
+  res.json({ success: true, message: '2FA enabled successfully' });
+});
+
+exports.generateTwoFactorAuthCode = catchAsync(async (req, res, next) => {
+  const user = req.user;
+
+  // Generate 2FA code.
+  const { otpauthUrl, base32 } = getTwoFactorAuthenticationCode();
+
+  // Save 2FA code in the database.
+  await User.findByIdAndUpdate(user._id, {
+    twoFactorAuthenticationCode: base32,
+  });
+
+  respondWithQRCode(otpauthUrl, response);
+});
+
+exports.secondFactorAuthentication = async (req, res, next) => {
+  const { twoFactorAuthenticationCode } = req.body;
+  const user = req.user;
+
+  const isCodeValid = await verifyTwoFactorAuthenticationCode(
+    twoFactorAuthenticationCode,
+    user
+  );
+  if (!isCodeValid) {
+    return next(new AppError('Code is not valid', 401));
+  }
+
+  user.createCookieToken(req, res, true);
+
+  response.send({
+    ...user.toObject(),
+    password: undefined,
+    twoFactorAuthenticationCode: undefined,
+  });
+};
+
+// Forgot Password ************************************************************* |
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   // Validate user email
   const existingUser = await User.findOne({ email: req.body.email });

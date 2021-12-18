@@ -8,7 +8,9 @@
     "npm": "^8"
   },
   "scripts": {
-    "test": "jest --watchAll",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "lint": "eslint",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "start:prod": "SET NODE_ENV=production&&nodemon src/server.js",
@@ -53,12 +55,15 @@
     "nodemailer": "^6.7.2",
     "parcel-bundler": "^1.12.5",
     "pug": "^3.0.2",
+    "qrcode": "^1.5.0",
     "sharp": "^0.27.2",
     "slugify": "^1.5.0",
     "socket.io": "^4.4.0",
+    "speakeasy": "^2.0.0",
     "stripe": "^8.139.0",
     "subscriptions-transport-ws": "^0.11.0",
     "swagger-ui-express": "^4.3.0",
+    "twilio": "^3.72.0",
     "uuid": "^8.3.2",
     "validator": "^13.7.0",
     "xss-clean": "^0.1.1"

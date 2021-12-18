@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- lts/*
+branches:
+  only:
+  - main
+script:
+- npm run lint
+- npm run test
+deploy:
+  provider: heroku
+  api_key:
+    secure: KKgtRreCtZNUBnGn8j0hpTx1bQ0iujDQeryz7OLiHK+6rhHCgwGYkNO2W+LvnBIDjDhlBczWnmzWDgiJw5XcpIFccLjrR74xok25PGbVl5/CPumFBdDqBygg5KeCLkzMy3ydjW6b5dvoOzGrBcZyjMmE/bmJuNr/oW/AZOhnXQB33O0t6mWKG+XrMTYa01V8Mi5xsI3rZXKdh+oAF94scO8X16aPHRLY0L4j6aoRV5Yuu83mZFL6THAebcAYpVVMHaDKq75Ba+LNXl1JHENsB3DX41h2InZYq2KBJVEDt70NXcIqFRNFa4il0XO1CVp8EOpsdQPTWGerMjw4CiCSyMDGd0ydkwxJ2kzN05kSB9ZkgAygP851sk+2pgFmn6EaLuvIzBzsceua5fiwirBiISKF/deeII90QAMZ0GwyKqarD5wvM3OpL8tkyDLF6RYUj/VB4GB1Nfi2hzGJN92OUS1hIuv/nzNSTL6eXLLZwS5vggS8YYOETeTKnnl8P9crj4Dt+RPd6QgQzGz8128FOOROCqpISz0NDoQ/oUnTiPf/FV2h2xlQ97ZaxqSgFM/P7XvApcrgvPp6GpoF3c4Oh6MtZT1S8AK3k2w9Y2+wUCTOOvsqUdmN7IPcqHZyEjULbAnWdJqp5W/gxNKMqwFJakeUI2NjtxDbV+3fdnOZAx8=

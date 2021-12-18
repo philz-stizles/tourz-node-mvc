@@ -16,9 +16,13 @@ const {
   resizeUserPhoto,
 } = require('../middlewares/multerMiddlewares');
 const { authenticate, authorize } = require('../middlewares/auth.middlewares');
+const bookingRouter = require('./booking.routes'); // Using Nested routes with express
 
 // Authenticate all routes after this middleware
 router.use(authenticate);
+
+// NESTED ROUTES
+router.use('/:userId/bookings', bookingRouter); // Telling the TourRouter to use the reviewRouter
 
 router
   .route('/me')

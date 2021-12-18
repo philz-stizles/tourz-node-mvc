@@ -14,6 +14,7 @@ const {
 const { aliasTopTours } = require('../middlewares/aliasMiddlewares');
 const { authenticate, authorize } = require('../middlewares/auth.middlewares');
 const reviewRouter = require('./review.routes'); // Using Nested routes with express
+const bookingRouter = require('./booking.routes'); // Using Nested routes with express
 const {
   uploadTourPhotos,
   resizeTourPhotos,
@@ -22,6 +23,7 @@ const {
 // NESTED ROUTES
 router.use('/:tourId/reviews', reviewRouter); // Telling the TourRouter to use the reviewRouter
 // whenever the above url is matched --> route mounting a nested route
+router.use('/:tourId/bookings', bookingRouter);
 
 // ALIASING with middleware and reusing controllers
 router.route('/top5Cheap').get(aliasTopTours, getAllTours); // You need to put this route at the top above routes like

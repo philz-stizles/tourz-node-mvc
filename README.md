@@ -118,6 +118,11 @@ This is an e-commerce back end resource that enables users to signup and purchas
 
 ## Redis
 
+## 2FA Authentication
+
+npm i speakeasy
+npm i qrcode
+
 ## GraphQL
 
 Install packages:
@@ -153,10 +158,29 @@ aws-sdk: npm install aws-sdk
 ## Deployment
 
 - Heroku deploy
+
   - Limitations:
     - Database: You may need to use cloud mongo
+  - Implementation:
+
+    - Travis CI:
+      Download and install Ruby
+      gem install travis
+      travis version
+      npm install -g heroku
+      heroku login
+      heroku authorizations:create
+      cd to project root
+      Generate a github personal token: Settings > Developer > Personal access tokens Generate new token
+      Travis Project > More options > Settings > Environment variables
+      name: GH_TOKEN value: <token> Add
+      travis login --com --github-token <token>
+      travis encrypt $(heroku auth:token) --com --add deploy.api_key
+      heroku logs -a <app-name> --tail
+
+    - Circle CI
+
 - Digital Ocean deploy
-  (https://www.codecontinue.com/article/deploy-react-node-mern-full-stack-app-to-digital-ocean)[Deployment Documentation]
 
 ## Swagger Documentation
 

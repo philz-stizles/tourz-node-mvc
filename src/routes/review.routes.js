@@ -6,7 +6,11 @@ const {
   getReview,
   deleteReview,
 } = require('../controllers/review.controllers');
-const { authenticate, authorize } = require('../middlewares/auth.middlewares');
+const {
+  authenticate,
+  authorize,
+  hasBooking,
+} = require('../middlewares/auth.middlewares');
 
 // NESTED ROUTES - finalize nested routing to merge params from parent route into nested route
 const router = express.Router({ mergeParams: true });
@@ -25,6 +29,7 @@ router
       if (!req.body.creator) req.body.creator = req.user.id;
       next();
     },
+    hasBooking,
     createReview
   )
   .get((req, res, next) => {
