@@ -46,7 +46,7 @@ const debug = (namespace: string, message: string, object?: unknown): void => {
   }
 };
 
-export default {
+module.exports = {
   info,
   warn,
   error,

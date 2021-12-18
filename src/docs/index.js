@@ -3,10 +3,10 @@ const servers = require('./servers');
 const components = require('./components');
 const tags = require('./tags');
 const auth = require('./paths/auth');
-const subCategories = require('./paths/sub-categories');
+const users = require('./paths/users');
 const categories = require('./paths/categories');
 const coupons = require('./paths/coupons');
-const products = require('./paths/products');
+const tours = require('./paths/tours');
 
 module.exports = {
   ...basicInfo,
@@ -15,10 +15,10 @@ module.exports = {
   tags,
   paths: {
     ...auth,
-    ...subCategories,
+    ...users,
     ...categories,
     ...coupons,
-    ...products,
+    ...tours,
   },
   // security: [{ bearerAuth: [] }], this applies
 };

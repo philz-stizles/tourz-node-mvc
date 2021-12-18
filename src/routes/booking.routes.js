@@ -7,7 +7,7 @@ const {
   deleteBooking,
   getBooking,
 } = require('../controllers/booking.controllers');
-const { authenticate, authorize } = require('../middlewares/authMiddlewares');
+const { authenticate, authorize } = require('../middlewares/auth.middlewares');
 
 const router = express.Router();
 

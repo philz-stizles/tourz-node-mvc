@@ -6,9 +6,9 @@
 //   FilterQuery,
 //   QueryOptions,
 //   LeanDocument,
-// } from 'mongoose';
-// import BadRequestError from '@src/errors/bad-request';
-// import NotFoundError from '@src/errors/not-found';
+// } = require('mongoose';
+// import BadRequestError = require('@src/errors/bad-request';
+// const NotFoundError = require('@src/errors/not-found';
 
 // exports.create = async (
 //   modelObject: DocumentDefinition<Document>,

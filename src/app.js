@@ -104,11 +104,11 @@ app.use('/', require('./routes/view.routes'));
 const api = process.env.API_ROOT;
 const version = process.env.API_VERSION;
 
-app.use(`${api}/${version}/auth`, require('./routes/auth.routes'));
-app.use(`${api}/${version}/users`, require('./routes/user.routes'));
-app.use(`${api}/${version}/tours`, require('./routes/tour.routes'));
-app.use(`${api}/${version}/reviews`, require('./routes/review.routes'));
-app.use(`${api}/${version}/bookings`, require('./routes/booking.routes'));
+app.use(`${api}${version}/auth`, require('./routes/auth.routes'));
+app.use(`${api}${version}/users`, require('./routes/user.routes'));
+app.use(`${api}${version}/tours`, require('./routes/tour.routes'));
+app.use(`${api}${version}/reviews`, require('./routes/review.routes'));
+app.use(`${api}${version}/bookings`, require('./routes/booking.routes'));
 
 // API Documentation ******************************************************** |
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));

@@ -1,15 +1,21 @@
 const { sendPlainEmail } = require('../services/email/nodemailer');
 const AppError = require('../errors/app.error');
-const { generateToken } = require('../utils/authUtils');
-const catchAsync = require('../utils/catchAsync.utils');
+const { generateToken } = require('../services/security/token.services');
+const { catchAsync } = require('../utils/api.utils');
 const crypto = require('crypto');
-const User = require('../models/userModel');
+const User = require('../models/user.model');
 const { createAndSendTokenWithCookie } = require('../utils/api.utils');
 
 exports.signup = catchAsync(async (req, res) => {
-  const { name, email, password, confirmPassword } = req.body;
+  const { username, fullname, email, password, confirmPassword } = req.body;
 
-  const newUser = await User.create({ name, email, password, confirmPassword });
+  const newUser = await User.create({
+    username,
+    fullname,
+    email,
+    password,
+    confirmPassword,
+  });
 
   const token = generateToken(newUser);
 

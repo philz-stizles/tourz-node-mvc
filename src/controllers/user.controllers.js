@@ -1,11 +1,11 @@
-const User = require('../models/userModel');
+const User = require('../models/user.model');
 const {
   filterRequestBody,
   createAndSendTokenWithCookie,
 } = require('../utils/api.utils');
 const AppError = require('../errors/app.error');
-const { generateToken } = require('../utils/authUtils');
-const catchAsync = require('../utils/catchAsync.utils');
+const { generateToken } = require('../services/security/token.services');
+const { catchAsync } = require('../utils/api.utils');
 const factory = require('./handler.factory');
 
 exports.createUser = catchAsync(async (req, res) => {

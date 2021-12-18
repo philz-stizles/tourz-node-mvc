@@ -1,5 +1,5 @@
-const Tour = require('../models/tourModel');
-const catchAsync = require('../utils/catchAsync.utils');
+const Tour = require('../models/tour.model');
+const { catchAsync } = require('../utils/api.utils');
 const AppError = require('../errors/app.error');
 const factory = require('./handler.factory');
 

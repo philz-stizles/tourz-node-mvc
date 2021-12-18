@@ -1,13 +1,13 @@
-import {
+const {
   DocumentDefinition,
   UpdateQuery,
   FilterQuery,
   QueryOptions,
   LeanDocument,
-} from 'mongoose';
-import BadRequestError from '@src/errors/bad-request';
-import NotFoundError from '@src/errors/not-found';
-import Coupon, { ICouponDocument } from '@src/models/coupon.model';
+} = require('mongoose';
+const BadRequestError = require('@src/errors/bad-request';
+const NotFoundError = require('@src/errors/not-found';
+const Coupon, { ICouponDocument } = require('@src/models/coupon.model';
 
 exports.create = async (modelObject: DocumentDefinition<ICouponDocument>) => {
   const existingCoupon = await Coupon.findOne({ name: modelObject.name });

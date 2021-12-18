@@ -1,13 +1,13 @@
-import {
+const {
   DocumentDefinition,
   UpdateQuery,
   FilterQuery,
   QueryOptions,
   LeanDocument,
-} from 'mongoose';
-import BadRequestError from '@src/errors/bad-request';
-import NotFoundError from '@src/errors/not-found';
-import Category, { ICategoryDocument } from '@src/models/category.model';
+} = require('mongoose';
+const BadRequestError = require('@src/errors/bad-request';
+const NotFoundError = require('@src/errors/not-found';
+const Category, { ICategoryDocument } = require('@src/models/category.model';
 
 exports.create = async (
   modelObject: DocumentDefinition<ICategoryDocument>

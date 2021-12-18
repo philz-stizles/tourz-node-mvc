@@ -12,7 +12,7 @@ const {
   getMonthlyPlan,
 } = require('../controllers/tour.controllers');
 const { aliasTopTours } = require('../middlewares/aliasMiddlewares');
-const { authenticate, authorize } = require('../middlewares/authMiddlewares');
+const { authenticate, authorize } = require('../middlewares/auth.middlewares');
 const reviewRouter = require('./review.routes'); // Using Nested routes with express
 const {
   uploadTourPhotos,

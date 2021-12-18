@@ -1,18 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PubSub } from 'graphql-subscriptions';
-import { ICouponDocument } from '@src/models/coupon.model';
-import { AuthenticationError } from 'apollo-server-express';
-import { ICouponResponse } from '../interfaces';
+const { PubSub } = require('graphql-subscriptions');
+const { AuthenticationError } = require('apollo-server-express');
 
 const pubsub = new PubSub();
 
-export const couponMutations = {
-  createCoupon: async (
-    _parent: any,
-    args: any,
-    context: any
-  ): Promise<ICouponResponse> => {
+exports.couponMutations = {
+  createCoupon: async (_parent, args, context) => {
     const { isAuthenticated, dataSources } = context;
     if (!isAuthenticated) {
       throw new AuthenticationError('Please register to complete this process');
@@ -28,11 +22,7 @@ export const couponMutations = {
       data: createdCoupon,
     };
   },
-  updateCoupon: async (
-    _parent: any,
-    args: any,
-    context: any
-  ): Promise<ICouponResponse> => {
+  updateCoupon: async (_parent, args, context) => {
     const updatedCoupon = await context.dataSources.coupons.update(args.data);
     return {
       statusCode: 200,
@@ -41,11 +31,7 @@ export const couponMutations = {
       data: updatedCoupon,
     };
   },
-  archiveCoupon: async (
-    _parent: any,
-    args: any,
-    context: any
-  ): Promise<ICouponResponse> => {
+  archiveCoupon: async (_parent, args, context) => {
     const loggedInUser = await context.dataSources.coupons.archive(args.id);
     return {
       statusCode: 200,
@@ -56,17 +42,13 @@ export const couponMutations = {
   },
 };
 
-export const couponQueries = {
-  async coupons(
-    _parent: any,
-    _args: any,
-    context: any
-  ): Promise<ICouponDocument[]> {
+exports.couponQueries = {
+  async coupons(_parent, _args, context) {
     return await context.dataSources.coupons.list();
   },
 };
 
-export const couponSubscriptions = {
+exports.couponSubscriptions = {
   createdCoupon: {
     subscribe: () => pubsub.asyncIterator(['COUPON_CREATED']),
   },

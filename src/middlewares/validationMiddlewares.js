@@ -1,15 +1,17 @@
-const AppError = require("../utils/appError")
+const AppError = require('../errors/app.error');
 
 exports.signupValidator = (req, _, next) => {
-    const { email, name, password, confirmPassword } = req.body
-    if(!email || !name || !password || !confirmPassword) return next(new AppError('Please fill all the required fields', 400))
+  const { email, username, password, confirmPassword } = req.body;
+  if (!email || !username || !password || !confirmPassword)
+    return next(new AppError('Please fill all the required fields', 400));
 
-    next()
-}
+  next();
+};
 
 exports.loginValidator = (req, _, next) => {
-    const { email, password } = req.body
-    if(!email || !password) return next(new AppError('Please provide an email and a password', 400))
+  const { email, password } = req.body;
+  if (!email || !password)
+    return next(new AppError('Please provide an email and a password', 400));
 
-    next()
-}
+  next();
+};

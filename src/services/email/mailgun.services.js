@@ -1,5 +1,5 @@
-import FormData from 'form-data';
-import Mailgun from 'mailgun.js';
+const FormData = require('form-data';
+const Mailgun = require('mailgun.js';
 
 const mailgun = new Mailgun(FormData);
 

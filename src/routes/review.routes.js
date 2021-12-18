@@ -6,7 +6,7 @@ const {
   getReview,
   deleteReview,
 } = require('../controllers/review.controllers');
-const { authenticate, authorize } = require('../middlewares/authMiddlewares');
+const { authenticate, authorize } = require('../middlewares/auth.middlewares');
 
 // NESTED ROUTES - finalize nested routing to merge params from parent route into nested route
 const router = express.Router({ mergeParams: true });

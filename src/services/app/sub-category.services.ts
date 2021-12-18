@@ -1,15 +1,15 @@
-import {
+const {
   DocumentDefinition,
   UpdateQuery,
   FilterQuery,
   QueryOptions,
   LeanDocument,
-} from 'mongoose';
-import BadRequestError from '@src/errors/bad-request';
-import NotFoundError from '@src/errors/not-found';
-import SubCategory, {
+} = require('mongoose';
+const BadRequestError = require('@src/errors/bad-request';
+const NotFoundError = require('@src/errors/not-found';
+const SubCategory, {
   ISubCategoryDocument,
-} from '@src/models/mongoose/subCategory.model';
+} = require('@src/models/mongoose/subCategory.model';
 
 exports.create = async (
   modelObject: DocumentDefinition<ISubCategoryDocument>

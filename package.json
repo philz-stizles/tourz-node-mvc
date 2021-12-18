@@ -14,7 +14,8 @@
     "start:prod": "SET NODE_ENV=production&&nodemon src/server.js",
     "debug": "ndb src/server.js",
     "watch:js": "parcel watch ./src/public/js/index.js --out-dir ./src/public/js --out-file bundle.js",
-    "build:js": "parcel build ./src/public/js/index.js --out-dir ./src/public/js --out-file bundle.js"
+    "build:js": "parcel build ./src/public/js/index.js --out-dir ./src/public/js --out-file bundle.js",
+    "seed": "node ./src/db/seeder --import"
   },
   "author": "philz stizles",
   "license": "ISC",
@@ -36,7 +37,7 @@
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "^4.17.2",
     "express-mongo-sanitize": "^2.0.2",
     "express-rate-limit": "^5.2.6",
     "graphql": "^16.1.0",

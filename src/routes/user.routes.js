@@ -15,7 +15,7 @@ const {
   uploadUserPhoto,
   resizeUserPhoto,
 } = require('../middlewares/multerMiddlewares');
-const { authenticate, authorize } = require('../middlewares/authMiddlewares');
+const { authenticate, authorize } = require('../middlewares/auth.middlewares');
 
 // Authenticate all routes after this middleware
 router.use(authenticate);

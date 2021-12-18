@@ -1,13 +1,13 @@
-import {
+const {
   DocumentDefinition,
   UpdateQuery,
   FilterQuery,
   QueryOptions,
   LeanDocument,
-} from 'mongoose';
-import BadRequestError from '@src/errors/bad-request';
-import NotFoundError from '@src/errors/not-found';
-import Product, { IProductDocument } from '@src/models/mongoose/product.model';
+} = require('mongoose';
+const BadRequestError = require('@src/errors/bad-request';
+const NotFoundError = require('@src/errors/not-found';
+const Product, { IProductDocument } = require('@src/models/mongoose/product.model';
 
 exports.create = async (modelObject: DocumentDefinition<IProductDocument>) => {
   const existingProduct = await Product.findOne({ title: modelObject.title });

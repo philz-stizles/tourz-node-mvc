@@ -1,8 +1,8 @@
 /* eslint-disable new-cap */
 const { MongoDataSource } = require('apollo-datasource-mongodb');
 const { ApolloError } = require('apollo-server-express');
-const User = require('@src/models/user.model');
-const { generateToken } = require('../../../utils/auth.utils');
+const User = require('../../../models/user.model');
+const { generateToken } = require('../../../services/security/token.services');
 
 class Users extends MongoDataSource {
   async getUser(id) {

@@ -5,7 +5,7 @@ exports.generateToken = user =>
   jwt.sign(
     { id: user._id },
     process.env.JWT_AUTH_SECRET, // The secret should atleast 32 characters long
-    { expiresIn: process.env.JWT_AUTH_EXPIRESIN }
+    { expiresIn: process.env.JWT_AUTH_EXPIRES_IN }
   );
 
 exports.verifyToken = async token =>

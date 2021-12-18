@@ -1,10 +1,10 @@
-// import { LeanDocument, FilterQuery, UpdateQuery } from 'mongoose';
-// import config from 'config';
-// import { get } from 'lodash';
-// import { UserDocument } from '@src/models/user.model';
-// import Session, { SessionDocument } from '../model/session.model';
-// import { sign, decode } from '../utils/jwt.utils';
-// import { findUser } from './user.service';
+// import { LeanDocument, FilterQuery, UpdateQuery } = require('mongoose');
+// import config = require('config');
+// import { get } = require('lodash');
+// import { UserDocument } = require('@src/models/user.model');
+// import Session, { SessionDocument } = require('../model/session.model');
+// import { sign, decode } = require('../utils/jwt.utils');
+// import { findUser } = require('./user.service');
 
 // export async function createSession(userId: string, userAgent: string) {
 //   const session = await Session.create({ user: userId, userAgent });

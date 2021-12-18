@@ -13,7 +13,7 @@ const { alerts } = require('../middlewares/alertMiddleware');
 const {
   authenticateView,
   authenticate,
-} = require('../middlewares/authMiddlewares');
+} = require('../middlewares/auth.middlewares');
 
 const router = express.Router();
 

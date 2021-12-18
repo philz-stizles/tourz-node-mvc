@@ -1,6 +1,6 @@
-import fs, { PathLike } from 'fs'
-import { S3, AWSError } from 'aws-sdk'
-import AWS from '../../services copy/aws/index'
+const fs, { PathLike } = require('fs'
+const { S3, AWSError } = require('aws-sdk'
+const AWS = require('../../services copy/aws/index'
 
 // const s3 = new AWS.S3({
 //   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -10,7 +10,7 @@ import AWS from '../../services copy/aws/index'
 
 const s3 = new AWS.S3({ apiVersion: '2010-12-01' })
 
-export const uploadDoc = (
+exports.uploadDoc = (
     name: string,
     file: PathLike,
     type: string,
@@ -35,7 +35,7 @@ export const uploadDoc = (
     })
 }
 
-export const uploadDocBase64 = (
+exports.uploadDocBase64 = (
     name: string,
     base64Data: S3.Body,
     contentType: string,
@@ -61,7 +61,7 @@ export const uploadDocBase64 = (
     })
 }
 
-export const removeDoc = (
+exports.removeDoc = (
     key: string,
     // eslint-disable-next-line no-unused-vars
     cb: (err: AWSError, data: S3.DeleteObjectOutput) => void,

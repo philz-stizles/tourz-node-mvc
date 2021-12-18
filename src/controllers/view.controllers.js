@@ -1,13 +1,12 @@
-const Tour = require('../models/tourModel');
-const User = require('../models/userModel');
+const Tour = require('../models/tour.model');
+const User = require('../models/user.model');
+const Booking = require('../models/booking.model');
 const AppError = require('../errors/app.error');
-const catchAsync = require('../utils/catchAsync.utils');
+const { catchAsync } = require('../utils/api.utils');
 
 exports.getOverView = catchAsync(async (req, res) => {
   // Get all tours data
   const tours = await Tour.find();
-
-  // Build template
 
   // Render template with data
   res.render('overview', { title: 'All Tours', tours });
