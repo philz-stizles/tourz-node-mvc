@@ -15,17 +15,21 @@ const {
   loginValidator,
   signupValidator,
 } = require('../middlewares/validationMiddlewares');
-const { authenticate } = require('../middlewares/auth.middlewares');
+const {
+  authenticate,
+  isAuthenticatedWith2FA,
+} = require('../middlewares/auth.middlewares');
 
 router.post('/signup', signupValidator, signup);
 router.post('/login', loginValidator, login);
-router.post('/loginWith2FA', loginValidator, loginWith2FA);
-router.post('/2fa/turn-on', isAuthenticatedWith2FA(), turnOnTwoFactorAuth);
+router.post('/login-with-2fa', loginValidator, loginWith2FA);
 router.post(
   '/2fa/generate',
   isAuthenticatedWith2FA(),
   generateTwoFactorAuthCode
 );
+router.post('/2fa/turn-on', isAuthenticatedWith2FA(), turnOnTwoFactorAuth);
+
 router.post(
   '/2fa/authenticate',
   isAuthenticatedWith2FA(true),

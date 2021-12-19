@@ -1,3 +1,4 @@
+const speakeasy = require('speakeasy');
 const QRCode = require('qrcode');
 
 exports.respondWithQRCode = (data, response) => {
@@ -14,7 +15,7 @@ exports.getTwoFactorAuthenticationCode = () => {
   };
 };
 
-const verifyTwoFactorAuthenticationCode = (
+exports.verifyTwoFactorAuthenticationCode = (
   twoFactorAuthenticationCode,
   user
 ) => {

@@ -5,8 +5,11 @@ const { catchAsync } = require('../utils/api.utils');
 const crypto = require('crypto');
 const User = require('../models/user.model');
 const { createAndSendTokenWithCookie } = require('../utils/api.utils');
-const { getTwoFactorAuthenticationCode, verifyTwoFactorAuthenticationCode } =
-  '../services/security/auth.services.js';
+const {
+  getTwoFactorAuthenticationCode,
+  verifyTwoFactorAuthenticationCode,
+  respondWithQRCode,
+} = require('../services/security/auth.services');
 
 // Authentication ***************************************************************** |
 exports.signup = catchAsync(async (req, res) => {
@@ -20,7 +23,7 @@ exports.signup = catchAsync(async (req, res) => {
     confirmPassword,
   });
 
-  const token = generateToken(newUser);
+  const token = newUser.generateToken();
 
   res.status(201).json({
     status: true,
@@ -64,11 +67,11 @@ exports.loginWith2FA = catchAsync(async (req, res, next) => {
   // you specify to the list of included fields. The _id is always returned accept you specify otherwise
   // e.g .select('+password -_id')
   if (!existingUser)
-    return next(new AppError('Incorrect email or password', 401));
+    return next(new AppError(401, 'Incorrect email or password'));
 
   // Check if password matches
   const isMatch = await existingUser.comparePassword(password);
-  if (!isMatch) return next(new AppError('Incorrect email or password', 401));
+  if (!isMatch) return next(new AppError(401, 'Incorrect email or password'));
 
   // Generate token and set cookie.
   existingUser.setCookieToken(req, res);
@@ -96,6 +99,18 @@ exports.loginWith2FA = catchAsync(async (req, res, next) => {
 
 // 2FA ************************************************************************* |
 
+exports.generateTwoFactorAuthCode = catchAsync(async (req, res, next) => {
+  // Generate 2FA code.
+  const { otpauthUrl, base32 } = getTwoFactorAuthenticationCode();
+
+  // Save 2FA code in the database.
+  await User.findByIdAndUpdate(req.user.id, {
+    twoFactorAuthenticationCode: base32,
+  });
+
+  respondWithQRCode(otpauthUrl, res);
+});
+
 exports.turnOnTwoFactorAuth = catchAsync(async (req, res, next) => {
   const { twoFactorAuthenticationCode } = req.body;
   const user = req.user;
@@ -104,7 +119,7 @@ exports.turnOnTwoFactorAuth = catchAsync(async (req, res, next) => {
     user
   );
   if (!isCodeValid) {
-    return next(new AppError('Incorrect email or password', 401));
+    return next(new AppError(401, 'Incorrect email or password'));
   }
 
   await User.findByIdAndUpdate(user._id, {
@@ -112,20 +127,6 @@ exports.turnOnTwoFactorAuth = catchAsync(async (req, res, next) => {
   });
 
   res.json({ success: true, message: '2FA enabled successfully' });
-});
-
-exports.generateTwoFactorAuthCode = catchAsync(async (req, res, next) => {
-  const user = req.user;
-
-  // Generate 2FA code.
-  const { otpauthUrl, base32 } = getTwoFactorAuthenticationCode();
-
-  // Save 2FA code in the database.
-  await User.findByIdAndUpdate(user._id, {
-    twoFactorAuthenticationCode: base32,
-  });
-
-  respondWithQRCode(otpauthUrl, response);
 });
 
 exports.secondFactorAuthentication = async (req, res, next) => {
@@ -137,12 +138,12 @@ exports.secondFactorAuthentication = async (req, res, next) => {
     user
   );
   if (!isCodeValid) {
-    return next(new AppError('Code is not valid', 401));
+    return next(new AppError(401, 'Code is not valid'));
   }
 
-  user.createCookieToken(req, res, true);
+  user.setCookieToken(req, res, true);
 
-  response.send({
+  res.send({
     ...user.toObject(),
     password: undefined,
     twoFactorAuthenticationCode: undefined,

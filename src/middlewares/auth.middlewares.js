@@ -52,33 +52,44 @@ exports.authenticate = catchAsync(async (req, res, next) => {
 
 exports.isAuthenticatedWith2FA =
   (omitSecondFactor = false) =>
-  async (request, response, next) => {
-    const cookies = request.cookies;
-    if (cookies && cookies.Authorization) {
-      const secret = process.env.JWT_SECRET;
-      try {
-        const verificationResponse = jwt.verify(cookies.Authorization, secret);
-        const { _id: id, isSecondFactorAuthenticated } = verificationResponse;
-        const user = await userModel.findById(id);
-        if (user) {
-          if (
-            !omitSecondFactor &&
-            user.isTwoFactorAuthenticationEnabled &&
-            !isSecondFactorAuthenticated
-          ) {
-            next(new WrongAuthenticationTokenException());
-          } else {
-            request.user = user;
-            next();
-          }
-        } else {
-          next(new WrongAuthenticationTokenException());
-        }
-      } catch (error) {
-        next(new WrongAuthenticationTokenException());
-      }
+  async (req, res, next) => {
+    let token = '';
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith('Bearer')
+    ) {
+      token = req.headers.authorization.split(' ')[1];
+    } else if (req.cookies.token) {
+      token = req.cookies.token;
+    }
+
+    if (!token)
+      return next(new AppError(401, 'You are not logged in. Please log'));
+
+    // Check if token is valid
+    const decodedToken = await verifyToken(token);
+    if (!decodedToken)
+      return next(new AppError(401, 'You are not authorized. Please log'));
+
+    const { id, isSecondFactorAuthenticated } = decodedToken;
+    // Check if user exists(or if a previously existing user with a valid token has been deleted)
+    // and return user if true
+    const existingUser = await User.findById(id);
+    if (!existingUser)
+      return next(
+        new AppError(401, 'You no longer have access to this resource')
+      );
+
+    if (
+      !omitSecondFactor &&
+      existingUser.isTwoFactorAuthenticationEnabled &&
+      !isSecondFactorAuthenticated
+    ) {
+      return next(new AppError(401, 'Wrong authentication token'));
     } else {
-      next(new AuthenticationTokenMissingException());
+      // Grant access to protected route
+      req.user = existingUser;
+      next();
     }
   };
 

@@ -1,5 +1,6 @@
 // Data Stores. ***************************************************** |
 const UserStore = require('./mongodb/Users');
+const RoleStore = require('./mongodb/Roles');
 const CouponStore = require('./mongodb/Coupons');
 const TourStore = require('./mongodb/Tours');
 const CategoryStore = require('./mongodb/Categories');
@@ -13,6 +14,7 @@ module.exports = () => {
 
   return {
     users: UserStore,
+    roles: RoleStore,
     bookings: BookingStore,
     categories: CategoryStore,
     coupons: CouponStore,

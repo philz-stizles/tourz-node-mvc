@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
+const { generateToken } = require('../services/security/token.services');
 
 // Put as much business logic in the models to keep the controllers as simple and lean as possible
 const userSchema = new mongoose.Schema(
@@ -46,7 +47,7 @@ const userSchema = new mongoose.Schema(
         message: 'Passwords do not match',
       },
     },
-    isTwoFactorAuthenticationEnabled: Boolean,
+    isTwoFactorAuthenticationEnabled: { type: Boolean, default: false },
     twoFactorAuthenticationCode: String,
     passwordChangedAt: Date,
     passwordResetToken: String,
