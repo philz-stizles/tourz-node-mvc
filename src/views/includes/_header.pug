@@ -7,8 +7,8 @@ header.header
         if isAuthenticated
             a#logoutBtn.nav__el.nav__el--logout Log out
             a.nav__el(href='/dashboard')
-                img.nav__user-img(src=`/img/users/${user.photo}` alt=`Photo of ${user.name}`)
-                span= user.name.split(' ')[0]
+                img.nav__user-img(src=`${user.avatar && user.avatar !== '' ? user.avatar : '/img/users/default.jpg'}` alt=`Photo of ${user.username}`)
+                span= user.email && user.email
         else
             a.nav__el(href='/login') Log in
             a.nav__el.nav__el--cta(href='/signup') Sign up

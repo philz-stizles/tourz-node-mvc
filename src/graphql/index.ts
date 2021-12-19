@@ -3,7 +3,12 @@ import { Express } from 'express';
 import { execute, subscribe } from 'graphql';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import { ApolloServer, gql } from 'apollo-server-express';
+import {
+  ApolloServer,
+  Config,
+  ExpressContext,
+  gql,
+} from 'apollo-server-express';
 import { BaseRedisCache } from 'apollo-server-cache-redis';
 import Redis from 'ioredis';
 import { graphqlUploadExpress } from 'graphql-upload';
@@ -51,7 +56,7 @@ const initGraphQL = (app: Express, server: Server): void => {
       },
     ],
     uploads: false,
-  });
+  } as Config<ExpressContext>);
   // Configure GraphQL Subscriptions
   const subscriptionServer = SubscriptionServer.create(
     {

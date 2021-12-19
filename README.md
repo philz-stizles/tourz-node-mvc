@@ -1,5 +1,7 @@
 # Tourz Naija Platform
 
+[![Build Status](https://app.travis-ci.com/philz-stizles/tourz-node-mvc.svg?branch=main)](https://app.travis-ci.com/philz-stizles/tourz-node-mvc)
+
 ## Introduction
 
 This is an e-commerce back end resource that enables users to signup and purchase items

@@ -2,9 +2,9 @@ import path from 'path';
 import fs from 'fs';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import Tour from '../models/tour.model';
-import Review from '../models/review.model';
-import User from '../models/user.model';
+import Tour from '@src/models/tour.model';
+import Review from '@src/models/review.model';
+import User from '@src/models/user.model';
 
 dotenv.config({ path: './config.env' });
 

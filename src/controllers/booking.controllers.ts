@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import Stripe from 'stripe';
-import catchAsync from '@src/utils/catchAsync.utils';
+import { catchAsync } from '@src/utils/api.utils';
 import AppError from '@src/errors/app.error';
 import * as factory from '@src/factories/handler.factory';
 // Models.
@@ -9,7 +9,7 @@ import Tour from '@src/models/tour.model';
 import Booking from '@src/models/booking.model';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2020-08-27',
+  apiVersion: '2020-08-27'
 });
 
 export const getCheckoutSession = catchAsync(
@@ -32,13 +32,13 @@ export const getCheckoutSession = catchAsync(
               images: [
                 `${req.protocol}://${req.get('host')}/img/tours/${
                   tour.imageCover
-                }`,
-              ],
+                }`
+              ]
             },
-            unit_amount: tour.price * 100, // expects cents, so convert to cents
+            unit_amount: tour.price * 100 // expects cents, so convert to cents
           },
-          quantity: 1,
-        },
+          quantity: 1
+        }
       ],
       mode: 'payment',
       // success_url: `${req.protocol}://${req.get('host')}/my-tours/?tour=${tourId}&creator=${req.user.id}&price=${tour.price}`,
@@ -47,7 +47,7 @@ export const getCheckoutSession = catchAsync(
       )}/my-tours?alert=booking`,
       cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`,
       customer_email: req.user.email,
-      client_reference_id: req.params.tourId,
+      client_reference_id: req.params.tourId
     });
 
     console.log(session);

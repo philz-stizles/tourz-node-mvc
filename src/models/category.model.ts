@@ -5,8 +5,8 @@ import { IUserDocument } from './user.model';
 import Tour from '@src/models/tour.model';
 
 // Create an interface representing a document in MongoDB.
-export interface IReview {
-  review: string;
+export interface ICategory {
+  category: string;
   rating: number;
   isPaid: boolean;
   tour: PopulatedDoc<ITourDocument & Document>;
@@ -15,26 +15,26 @@ export interface IReview {
   updatedAt: string;
 }
 
-export interface IReviewDocument extends IReview, Document {}
+export interface ICategoryDocument extends ICategory, Document {}
 
-export interface IReviewModel extends Model<IReviewDocument> {
+export interface ICategoryModel extends Model<ICategoryDocument> {
   aggregates(val: any[]): any;
 }
 
 // Put as much business logic in the models to keep the controllers as simple and lean as possible
-const reviewSchema = new Schema(
+const categorySchema = new Schema(
   {
-    review: { type: String, required: [true, 'Review cannot be empty'] },
+    category: { type: String, required: [true, 'Category cannot be empty'] },
     rating: { type: Number, min: 1, max: 5 },
     tour: {
       type: Types.ObjectId,
       ref: 'Tour',
-      required: [true, 'Review must have a tour'],
+      required: [true, 'Category must have a tour'],
     },
     createdBy: {
       type: Types.ObjectId,
       ref: 'Users',
-      required: [true, 'Review must have a creator'],
+      required: [true, 'Category must have a creator'],
     },
   },
   {
@@ -45,11 +45,11 @@ const reviewSchema = new Schema(
   }
 );
 
-reviewSchema.index({ tour: 1, creator: 1 }, { unique: true }); // Every review must
-// have a unique combination tour and creator, thus preventing duplicate reviews -
-// multiple reviews from same user
+categorySchema.index({ tour: 1, creator: 1 }, { unique: true }); // Every Category must
+// have a unique combination tour and creator, thus preventing duplicate Categorys -
+// multiple Categorys from same user
 
-reviewSchema.pre(/^find/, function (next) {
+categorySchema.pre(/^find/, function (next) {
   // this
   //     .populate({ path: 'tour', select: 'name -_id' }) // First query
   //     .populate({ path: 'creator', select: 'name photo -_id' }); // Second query // Rather than duplicating the populate query
@@ -62,10 +62,10 @@ reviewSchema.pre(/^find/, function (next) {
   next();
 });
 
-reviewSchema.statics.calcAverageRatings = async function (tourId) {
-  const review = this as IReviewModel;
+categorySchema.statics.calcAverageRatings = async function (tourId) {
+  const Category = this as ICategoryModel;
 
-  const stats = await review.aggregates([
+  const stats = await Category.aggregates([
     { $match: { tour: tourId } },
     {
       $group: {
@@ -89,18 +89,21 @@ reviewSchema.statics.calcAverageRatings = async function (tourId) {
   }
 };
 
-reviewSchema.post('save', function () {
+categorySchema.post('save', function () {
   this.constructor.calcAverageRatings(this.tour);
 });
 
-reviewSchema.pre(/^findOneAnd/, async function (next) {
-  this.review = await this.findOne();
-  console.log(this.review);
+categorySchema.pre(/^findOneAnd/, async function (next) {
+  this.Category = await this.findOne();
+  console.log(this.Category);
   next();
 });
 
-reviewSchema.post(/^findOneAnd/, async function () {
-  await this.review.constructor.calcAverageRatings(this.review.tour);
+categorySchema.post(/^findOneAnd/, async function () {
+  await this.Category.constructor.calcAverageRatings(this.Category.tour);
 });
 
-export default model<IReviewDocument, IReviewModel>('Reviews', reviewSchema);
+export default model<ICategoryDocument, ICategoryModel>(
+  'Category',
+  categorySchema
+);

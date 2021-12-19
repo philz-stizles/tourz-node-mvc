@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import { IUser } from '@src/models/user.model';
+import { Request, Response, NextFunction } from 'express';
+import { IUserDocument } from '@src/models/user.model';
 import { generateToken } from '@src/utils/auth.utils';
 
 class APIFeatures {
@@ -74,7 +74,7 @@ const filterRequestBody = (body: any, ...allowedFields: string[]): any => {
 };
 
 const createAndSendToken = (
-  user: IUser,
+  user: IUserDocument,
   statusCode: number,
   res: Response
 ): void => {
@@ -86,16 +86,16 @@ const createAndSendToken = (
       loggedInUser: {
         id: user._id,
         email: user.email,
-        fullname: user.fullname,
+        fullname: user.fullname
       },
-      token,
+      token
     },
-    message: 'Login successful',
+    message: 'Login successful'
   });
 };
 
 const createAndSendTokenWithCookie = (
-  user: IUser,
+  user: IUserDocument,
   statusCode: number,
   req: Request,
   res: Response,
@@ -106,7 +106,7 @@ const createAndSendTokenWithCookie = (
   const cookieOptions = {
     expires: new Date(Date.now() + expiresIn * 24 * 60 * 60 * 1000),
     httpOnly: true,
-    secure: req.secure || req.headers['x-forwarded-proto'] === 'https', // This is heroku specific
+    secure: req.secure || req.headers['x-forwarded-proto'] === 'https' // This is heroku specific
   };
 
   // if(process.env.NODE_ENV === 'production') {
@@ -117,10 +117,17 @@ const createAndSendTokenWithCookie = (
 
   res.cookie('token', token, cookieOptions);
 
-  const retrievedUser = { ...user, password: undefined };
+  const retrievedUser = { ...user.toJSON(), password: undefined };
+  console.log(retrievedUser);
   res
     .status(statusCode)
     .json({ status: true, data: { user: retrievedUser, token }, message });
+};
+
+const catchAsync = (fn: any) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    fn(req, res, next).catch(next);
+  };
 };
 
 export {
@@ -128,4 +135,5 @@ export {
   filterRequestBody,
   createAndSendToken,
   createAndSendTokenWithCookie,
+  catchAsync
 };

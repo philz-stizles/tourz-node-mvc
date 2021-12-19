@@ -3,7 +3,7 @@ import { IAuthRequest } from '@src/interfaces/AuthRequest';
 import User from '../models/user.model';
 import AppError from '../errors/app.error';
 import { verifyToken } from '../utils/auth.utils';
-import catchAsync from '../utils/catchAsync.utils';
+import { catchAsync } from '@src/utils/api.utils';
 import { IJWTokenPayload } from '@src/interfaces/JsonWebToken';
 
 export const isAuthenticated = catchAsync(

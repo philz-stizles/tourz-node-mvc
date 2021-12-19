@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 
-const notFoundHandler = (_request: Request, response: Response) => {
+const notFoundHandler = (_request: Request, res: Response) => {
   const message = 'Resource not found';
 
-  response.status(404).send({ status: false, message });
+  res.status(404).json({ status: false, message });
 };
 
 export default notFoundHandler;

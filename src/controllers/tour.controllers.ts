@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import catchAsync from '@src/utils/catchAsync.utils';
+import { catchAsync } from '@src/utils/api.utils';
 import AppError from '@src/errors/app.error';
 import Tour from '@src/models/tour.model';
 import * as factory from '@src/factories/handler.factory';

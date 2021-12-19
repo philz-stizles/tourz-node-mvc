@@ -2,11 +2,11 @@ import { NextFunction, Request, Response } from 'express';
 import User from '@src/models/user.model';
 import {
   filterRequestBody,
-  createAndSendTokenWithCookie,
+  createAndSendTokenWithCookie
 } from '@src/utils/api.utils';
 import AppError from '@src/errors/app.error';
 import { generateToken } from '@src/utils/auth.utils';
-import catchAsync from '@src/utils/catchAsync.utils';
+import { catchAsync } from '@src/utils/api.utils';
 import * as factory from '@src/factories/handler.factory';
 
 export const createUser = catchAsync(async (req: Request, res: Response) => {
@@ -21,9 +21,9 @@ export const createUser = catchAsync(async (req: Request, res: Response) => {
     status: true,
     data: {
       loggedInUser: newUser,
-      token,
+      token
     },
-    message: 'created successfully',
+    message: 'created successfully'
   });
 });
 
@@ -47,14 +47,14 @@ export const updateMe = catchAsync(
       filteredBody,
       {
         new: true,
-        runValidators: true,
+        runValidators: true
       }
     );
 
     res.json({
       status: true,
       data: updatedUser,
-      message: 'Updated successfully',
+      message: 'Updated successfully'
     });
   }
 );

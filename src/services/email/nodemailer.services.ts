@@ -10,8 +10,8 @@ export const sendPlainEmail = async (options: IMailOptions): Promise<void> => {
     port: process.env.EMAIL_PORT,
     auth: {
       user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD,
-    },
+      pass: process.env.EMAIL_PASSWORD
+    }
   } as TransportOptions);
 
   // Define email options
@@ -19,7 +19,7 @@ export const sendPlainEmail = async (options: IMailOptions): Promise<void> => {
     from: process.env.EMAIL_FROM,
     to: options.email,
     subject: options.subject,
-    text: options.message,
+    text: options.message
   };
 
   // Send email
@@ -35,8 +35,8 @@ export const sendHTMLEmail = async (options: IMailOptions): Promise<void> => {
     port: process.env.EMAIL_PORT,
     auth: {
       user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD,
-    },
+      pass: process.env.EMAIL_PASSWORD
+    }
   } as TransportOptions);
 
   // Define email options
@@ -44,7 +44,7 @@ export const sendHTMLEmail = async (options: IMailOptions): Promise<void> => {
     from: process.env.EMAIL_FROM,
     to: options.email,
     subject: options.subject,
-    html: options.message,
+    html: options.message
   };
 
   // Send email

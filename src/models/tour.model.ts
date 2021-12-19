@@ -1,12 +1,4 @@
-import {
-  PopulatedDoc,
-  Model,
-  Schema,
-  model,
-  Types,
-  Document,
-  Query,
-} from 'mongoose';
+import { PopulatedDoc, Model, Schema, model, Types, Document } from 'mongoose';
 import slugify from 'slugify';
 // Interfaces.
 import { IUserDocument } from './user.model';

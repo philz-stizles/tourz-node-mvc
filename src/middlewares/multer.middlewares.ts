@@ -33,7 +33,7 @@ const multerFilter = (req: Request, file: any, cb: any) => {
 };
 const upload = multer({
   storage: multerStorage,
-  fileFilter: multerFilter,
+  fileFilter: multerFilter
 });
 
 const processUpload = multer({ dest: './uploads' });
@@ -44,7 +44,7 @@ export const uploadUserPhoto = upload.single('doc');
 
 export const uploadTourPhotos = upload.fields([
   { name: 'imageCover', maxCount: 1 },
-  { name: 'images', maxCount: 3 },
+  { name: 'images', maxCount: 3 }
 ]);
 
 export const resizeUserPhoto = (
@@ -82,7 +82,7 @@ export const csvUploadHandler = () => {
 
   const uploadCSV = multer({
     storage: csvUploadStorage,
-    fileFilter: csvFilter,
+    fileFilter: csvFilter
   });
 
   return uploadCSV.single('doc');

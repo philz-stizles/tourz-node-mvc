@@ -3,20 +3,24 @@ import UserStore, { Users } from '@src/graphql/data-sources/mongodb/Users';
 import CouponStore, {
   Coupons,
 } from '@src/graphql/data-sources/mongodb/Coupons';
-import ProductStore, {
-  Products,
-} from '@src/graphql/data-sources/mongodb/Products';
-import Categories from '@src/graphql/data-sources/mongodb/Categories';
-import Carts from '@src/graphql/data-sources/mongodb/Carts';
-import Category from '@src/models/category.model';
-import Cart from '@src/models/cart.model';
+import TourStore, { Tours } from '@src/graphql/data-sources/mongodb/Tours';
+import CategoryStore, {
+  Categories,
+} from '@src/graphql/data-sources/mongodb/Categories';
+import BookingStore, {
+  Bookings,
+} from '@src/graphql/data-sources/mongodb/Bookings';
+import ReviewStore, {
+  Reviews,
+} from '@src/graphql/data-sources/mongodb/Reviews';
 
 type MongoDataSources = {
   users: Users;
-  carts: Carts;
+  bookings: Bookings;
   categories: Categories;
   coupons: Coupons;
-  products: Products;
+  tours: Tours;
+  reviews: Reviews;
 };
 
 export default (): MongoDataSources => {
@@ -25,10 +29,11 @@ export default (): MongoDataSources => {
 
   return {
     users: UserStore,
-    carts: new Carts(Cart),
-    categories: new Categories(Category),
+    bookings: BookingStore,
+    categories: CategoryStore,
     coupons: CouponStore,
-    products: ProductStore,
+    tours: TourStore,
+    reviews: ReviewStore,
     // users: new Users(client.db().collection('users')),
   };
 };

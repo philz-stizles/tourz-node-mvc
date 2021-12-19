@@ -4,7 +4,7 @@ import '../dotenv-config';
 import app from '@src/app';
 import connectDB from '@src/db';
 import initSocketIO from '@src/socket';
-// import initGraphQL from '@src/graphql';
+import initGraphQL from '@src/graphql';
 
 const startUp = async (expressApp: Express) => {
   const JWT_AUTH = process.env.JWT_AUTH_SECRET;
@@ -27,7 +27,6 @@ const startUp = async (expressApp: Express) => {
   // Connect to database.
   const db = DB_HOST.replace('<PASSWORD>', DB_PASSWORD);
   await connectDB(db);
-
   // initialize http server
   const httpServer = http.createServer(expressApp); // Now we have our own http instance
   // unlike with express where the server was implicitly create for us

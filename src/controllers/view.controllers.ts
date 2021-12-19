@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import AppError from '@src/errors/app.error';
-import catchAsync from '@src/utils/catchAsync.utils';
+import { catchAsync } from '@src/utils/api.utils';
 // Models.
 import Tour from '@src/models/tour.model';
 import User from '@src/models/user.model';
@@ -22,7 +22,7 @@ export const getTourView = catchAsync(
     // Get tour data including reviews and guides
     const tour = await Tour.findOne({ slug: req.params.slug }).populate({
       path: 'reviews',
-      fields: 'review rating user',
+      fields: 'review rating user'
     });
 
     // Check if tour exists
@@ -77,7 +77,7 @@ export const updateUser = catchAsync(async (req: Request, res: Response) => {
     req.user._id,
     {
       name: req.body.name,
-      email: req.body.email,
+      email: req.body.email
     },
     { new: true, runValidators: true }
   );

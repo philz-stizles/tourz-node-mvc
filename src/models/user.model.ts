@@ -1,7 +1,6 @@
 import crypto from 'crypto';
 import { Model, Schema, model, Types } from 'mongoose';
 import bcrypt from 'bcryptjs';
-import validator from 'validator';
 import { generateToken } from '@src/utils/auth.utils';
 
 interface IUserToken {
@@ -9,7 +8,7 @@ interface IUserToken {
 }
 
 // Create an interface representing a document in MongoDB.
-export interface IUser {
+interface IUser {
   _id: Types.ObjectId;
   fullname?: string;
   username: string;
@@ -32,9 +31,10 @@ export interface IUserDocument extends IUser, Document {
   comparePassword: (candidatePassword: string) => Promise<boolean>;
   createPasswordResetToken: () => string;
   isPasswordChangedAfterTokenGen: (issuedAt: number) => boolean;
+  toJSON: () => any;
 }
 
-export interface IUserModel extends Model<IUserDocument> {
+interface IUserModel extends Model<IUserDocument> {
   findByAuthentication(email: string, password: string): Promise<void | any>;
 }
 
@@ -57,7 +57,6 @@ const userSchema = new Schema(
       trim: true,
       unique: true,
       lowercase: true,
-      validate: [validator.isEmail, 'Please provide a valid email'],
     },
     avatar: { type: String, default: 'default.jpg' },
     password: {
@@ -86,7 +85,7 @@ const userSchema = new Schema(
     roles: [String],
     isActive: { type: Boolean, default: true, select: false },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
 userSchema.pre('save', async function (next) {
@@ -148,4 +147,4 @@ userSchema.methods.createPasswordResetToken = function () {
   return resetToken;
 };
 
-export default model<IUser, IUserModel>('User', userSchema);
+export default model<IUserDocument, IUserModel>('User', userSchema);

@@ -4,7 +4,7 @@ import { ITourDocument } from './tour.model';
 import { IUserDocument } from './user.model';
 
 // Create an interface representing a document in MongoDB.
-export interface IBooking {
+interface IBooking {
   price: number;
   isPaid: boolean;
   tour: PopulatedDoc<ITourDocument & Document>;
@@ -13,12 +13,12 @@ export interface IBooking {
   updatedAt: string;
 }
 
-// export interface IBookingDocument extends IBooking, Document {}
+export interface IBookingDocument extends IBooking, Document {}
 
-export interface IBookingModel extends Model<IBooking> {}
+interface IBookingModel extends Model<IBookingDocument> {}
 
 // Put as much business logic in the models to keep the controllers as simple and lean as possible
-const bookingSchema = new Schema<IBooking, IBookingModel>(
+const bookingSchema = new Schema(
   {
     tour: {
       type: Types.ObjectId,
@@ -49,4 +49,4 @@ bookingSchema.pre(/^find/, function (next) {
   next();
 });
 
-export default model<IBooking>('Booking', bookingSchema);
+export default model<IBookingDocument, IBookingModel>('Booking', bookingSchema);

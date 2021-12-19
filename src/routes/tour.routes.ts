@@ -6,7 +6,7 @@ import {
   getTour,
   deleteTour,
   getToursWithin,
-  getDistances,
+  getDistances
   // getTourStats,
   // getMonthlyPlan,
 } from '../controllers/tour.controllers';
@@ -15,7 +15,7 @@ import { isAuthenticated, isAuthorized } from '../middlewares/auth.middlewares';
 import reviewRouter from './review.routes'; // Using Nested routes with express
 import {
   uploadTourPhotos,
-  resizeTourPhotos,
+  resizeTourPhotos
 } from '../middlewares/multer.middlewares';
 
 const router = express.Router();
