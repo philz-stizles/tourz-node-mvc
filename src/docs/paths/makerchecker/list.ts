@@ -1,7 +1,7 @@
 export default {
   get: {
     summary: 'Get a list of all categories',
-    tags: ['Categories'],
+    tags: ['Makerchecker'],
     description: 'Get all sub-categories',
     // operationId: 'getTodos',
     parameters: [],

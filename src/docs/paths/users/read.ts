@@ -1,7 +1,7 @@
 export default {
   get: {
     summary: 'Get a category by its slug',
-    tags: ['Categories'],
+    tags: ['Users'],
     description: 'Create a new sub-category',
     // operationId: '',
     parameters: [
@@ -12,12 +12,12 @@ export default {
           type: 'string',
         },
         required: true,
-        description: 'Category slug',
+        description: 'User slug',
       },
     ],
     responses: {
       '200': {
-        description: 'Category was created successfully',
+        description: 'User was created successfully',
         content: {
           'application/json': {
             schema: {

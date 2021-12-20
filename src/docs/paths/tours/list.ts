@@ -1,6 +1,6 @@
 export default {
   get: {
-    tags: ['Products'], // operation's tag.
+    tags: ['Tours'], // operation's tag.
     description: 'Get products', // operation's desc.
     operationId: 'getProducts', // unique operation id.
     // expected responses

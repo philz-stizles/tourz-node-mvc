@@ -1,6 +1,6 @@
 export default {
   get: {
-    tags: ['Reviews'],
+    tags: ['Locations'],
     description: 'Get all sub-categories',
     // operationId: 'getTodos',
     parameters: [],

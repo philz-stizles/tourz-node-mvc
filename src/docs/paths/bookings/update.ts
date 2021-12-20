@@ -1,7 +1,7 @@
 export default {
   put: {
     summary: 'Update an existing category',
-    tags: ['Categories'],
+    tags: ['Bookings'],
     description: 'Create a new sub-category',
     // operationId: '',
     parameters: [

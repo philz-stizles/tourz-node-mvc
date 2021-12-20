@@ -1,7 +1,7 @@
 export default {
   put: {
     summary: 'Update an existing category',
-    tags: ['Makerchecker'],
+    tags: ['Categories'],
     description: 'Create a new sub-category',
     // operationId: '',
     parameters: [

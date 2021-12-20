@@ -1,8 +1,8 @@
 export default {
   put: {
-    tags: ['Products'],
-    description: 'Update a new product',
-    operationId: 'updateProduct',
+    tags: ['Tours'],
+    description: 'Update a new tour',
+    operationId: 'updateTour',
     parameters: [
       // expected params
       {
@@ -12,7 +12,7 @@ export default {
           $ref: '#/components/schemas/id', // id model
         },
         required: true, // mandatory
-        description: 'Id of product to be updated', // short desc.
+        description: 'Id of tour to be updated', // short desc.
       },
     ],
     requestBody: {
@@ -21,14 +21,14 @@ export default {
         // content-type
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/ProductInput', // todo input data model
+            $ref: '#/components/schemas/TourInput', // todo input data model
           },
         },
       },
     },
     responses: {
       200: {
-        description: 'Product updated successfully',
+        description: 'Tour updated successfully',
         content: {
           'application/json': {
             schema: {
@@ -39,7 +39,7 @@ export default {
       },
       // response code
       404: {
-        description: 'Product not found', // response desc.
+        description: 'Tour not found', // response desc.
       },
       // response code
       500: {

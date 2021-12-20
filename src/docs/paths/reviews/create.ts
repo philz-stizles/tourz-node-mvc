@@ -1,6 +1,6 @@
 export default {
   post: {
-    tags: ['Sub Categories'],
+    tags: ['Reviews'],
     description: 'Create a new sub-category',
     // operationId: '',
     parameters: [],

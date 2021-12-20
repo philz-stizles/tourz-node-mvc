@@ -1,24 +1,15 @@
-import basicInfo from './basicInfo';
+import info from './info';
 import servers from './servers';
 import components from './components';
 import tags from './tags';
-import auth from './paths/auth';
-import reviews from './paths/reviews';
-import bookings from './paths/bookings';
-import coupons from './paths/coupons';
-import products from './paths/tours';
+import paths from './paths';
 
 export default {
-  ...basicInfo,
+  openapi: '3.0.3',
+  info,
   servers,
   components,
   tags,
-  paths: {
-    ...auth,
-    ...reviews,
-    ...bookings,
-    ...coupons,
-    ...products,
-  },
+  paths,
   // security: [{ bearerAuth: [] }], this applies
 };

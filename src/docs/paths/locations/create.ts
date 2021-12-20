@@ -1,22 +1,23 @@
 export default {
   post: {
-    tags: ['Tours'],
-    description: 'Create a new product',
-    operationId: 'createProduct',
+    tags: ['Locations'],
+    description: 'Create a new sub-category',
+    // operationId: '',
+    parameters: [],
     requestBody: {
       // expected request body
       content: {
         // content-type
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/ProductInput', // todo input data model
+            $ref: '#/components/schemas/SubCategoryInput', // todo input data model
           },
         },
       },
     },
     responses: {
-      201: {
-        description: 'Product created successfully',
+      '201': {
+        description: 'Sub-category was created',
         content: {
           'application/json': {
             schema: {
@@ -24,9 +25,6 @@ export default {
             },
           },
         },
-      },
-      500: {
-        description: 'Server error', // response desc
       },
     },
   },

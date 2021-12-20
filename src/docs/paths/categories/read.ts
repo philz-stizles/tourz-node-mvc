@@ -1,7 +1,7 @@
 export default {
-  put: {
-    summary: 'Update an existing category',
-    tags: ['Makerchecker'],
+  get: {
+    summary: 'Get a category by its slug',
+    tags: ['Categories'],
     description: 'Create a new sub-category',
     // operationId: '',
     parameters: [
@@ -12,21 +12,9 @@ export default {
           type: 'string',
         },
         required: true,
-        description: "The target category's slug",
+        description: 'Category slug',
       },
     ],
-    requestBody: {
-      // expected request body
-      required: true,
-      content: {
-        // content-type
-        'application/json': {
-          schema: {
-            $ref: '#/components/schemas/CategoryInput', // todo input data model
-          },
-        },
-      },
-    },
     responses: {
       '200': {
         description: 'Category was created successfully',

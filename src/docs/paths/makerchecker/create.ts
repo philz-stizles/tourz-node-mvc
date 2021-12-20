@@ -1,7 +1,7 @@
 export default {
   post: {
     summary: 'Create a new category',
-    tags: ['Categories'],
+    tags: ['Makerchecker'],
     description: 'Create a new sub-category',
     // operationId: '',
     parameters: [],

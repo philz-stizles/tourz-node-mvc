@@ -1,7 +1,7 @@
 export default {
   get: {
     summary: 'Get a list of all categories',
-    tags: ['Bookings'],
+    tags: ['Categories'],
     description: 'Get all sub-categories',
     // operationId: 'getTodos',
     parameters: [],

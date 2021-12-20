@@ -1,7 +1,7 @@
 export default {
   put: {
     summary: 'Update an existing category',
-    tags: ['Categories'],
+    tags: ['Transactions'],
     description: 'Create a new sub-category',
     // operationId: '',
     parameters: [
@@ -22,14 +22,14 @@ export default {
         // content-type
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/CategoryInput', // todo input data model
+            $ref: '#/components/schemas/TransactionInput', // todo input data model
           },
         },
       },
     },
     responses: {
       '200': {
-        description: 'Category was created successfully',
+        description: 'Transaction was created successfully',
         content: {
           'application/json': {
             schema: {

@@ -1,7 +1,7 @@
 export default {
   get: {
     summary: 'Get a category by its slug',
-    tags: ['Categories'],
+    tags: ['Bookings'],
     description: 'Create a new sub-category',
     // operationId: '',
     parameters: [

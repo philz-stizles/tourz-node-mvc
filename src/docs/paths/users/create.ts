@@ -1,7 +1,7 @@
 export default {
   post: {
     summary: 'Create a new category',
-    tags: ['Categories'],
+    tags: ['Users'],
     description: 'Create a new sub-category',
     // operationId: '',
     parameters: [],
@@ -12,14 +12,14 @@ export default {
         // content-type
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/CategoryInput', // todo input data model
+            $ref: '#/components/schemas/UserInput', // todo input data model
           },
         },
       },
     },
     responses: {
       '201': {
-        description: 'Category was created successfully',
+        description: 'User was created successfully',
         content: {
           'application/json': {
             schema: {

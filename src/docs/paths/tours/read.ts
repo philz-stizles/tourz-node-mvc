@@ -1,8 +1,8 @@
 export default {
   get: {
-    tags: ['Products'],
-    description: 'Get a product',
-    operationId: 'getProduct',
+    tags: ['Tours'],
+    description: 'Get a tour',
+    operationId: 'getTour',
     parameters: [
       // expected params.
       {
@@ -12,23 +12,23 @@ export default {
           $ref: '#/components/schemas/slug', // data model of the param
         },
         required: true, // Mandatory param
-        description: 'A single product slug', // param desc.
+        description: 'A single tour slug', // param desc.
       },
     ],
     // expected responses
     responses: {
       200: {
-        description: 'Product retrieved',
+        description: 'Tour retrieved',
         content: {
           'application/json': {
             schema: {
-              $ref: '#/components/schemas/Product',
+              $ref: '#/components/schemas/Tour',
             },
           },
         },
       },
       404: {
-        description: 'Product was not found',
+        description: 'Tour was not found',
         content: {
           'application/json': {
             schema: {

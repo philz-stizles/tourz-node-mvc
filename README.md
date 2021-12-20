@@ -7,6 +7,29 @@
 This is an e-commerce back end resource that enables users to signup and purchase items
 "mongoose": "^5.13.0",
 
+## Contents
+
+[(1.) Technologies](#technologies)
+[(2.) Features](#technologies)
+[(3.) Typescript](#typescript)
+[(4.) Eslint](#eslint)
+[(5.) Prettier](#prettier)
+[(6.) Jest](#jest)
+[(7.) Environment Variables](#environment-variables)
+[(8.) File Uploads](#file-uploads)
+[(9.) Bull](#bull)
+[(10.) Redis](#redis)
+[(11.) GraphQL](#graphql)
+[(12.) Socket.io](#socket.io)
+[(13.) AWS](#aws)
+[(14.) SMS](#sms)
+[(15.) Caching](#caching)
+[(16.) Pre-Deployment](#pre-deployment)
+[(17.) Deployment](#deployment)
+[(18.) Swagger Documentation](#swagger-documentation)
+[(19.) Security issues and best practices](#security-issues-and-best-practices)
+[(20.) Compatibility information](#compatibility-information)
+
 ## Technologies
 
 - Node, Express,
@@ -40,7 +63,7 @@ This is an e-commerce back end resource that enables users to signup and purchas
   - npm install -D @typescript-eslint/eslint-plugin @typescript-eslint/parser
 - Create tsconfig file: npx tsc --init
 
-## Configure Eslint
+## Eslint
 
 - Install vscode eslint plugin
 - Recommendation to install eslint on a local level: npm install -D eslint
@@ -66,7 +89,7 @@ This is an e-commerce back end resource that enables users to signup and purchas
 - Install import resolver(optional): npm install -D eslint-import-resolver-typescript tsconfig-paths
 - Reload vscode for configurations to kick in: ctrl + shift + p > reload
 
-## Configure Prettier
+## Prettier
 
 - Install vscode eslint plugin
 - Install prettier in project: npm install -D prettier
@@ -86,7 +109,7 @@ This is an e-commerce back end resource that enables users to signup and purchas
 ## Jest
 
 - Install dependencies: npm install -D jest ts-jest @types/jest supertest
-- Configure eslint: npx ts-jest config:init
+- Configure jest: npx ts-jest config:init
 - Add your configs to 'jest.config.js'
 - Configure '.eslintrc.js':
   env: {
@@ -95,8 +118,9 @@ This is an e-commerce back end resource that enables users to signup and purchas
   },
 - Configure 'package.json'
   "test": "jest",
-  "test:watch": "jest --watch",
+  "test:watch": "jest --watchAll",
   "test:coverage": "jest --coverage",
+- Run test: npm run test
 
 ## Environment Variables
 
@@ -250,15 +274,7 @@ package.json
 "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js"
 },
 
-// TESTING
-npm install --save-dev jest
-
-jest --watchAll
-
-npm run test
-
-// CHALLENGES => TODO
-// Users can only review a tour that they have actually booked
+## Compatibility information
 
 mongoose@5.11.16
 node@14.15.5

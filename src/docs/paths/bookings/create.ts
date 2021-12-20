@@ -1,8 +1,8 @@
 export default {
   post: {
-    summary: 'Create a new category',
-    tags: ['Categories'],
-    description: 'Create a new sub-category',
+    summary: 'Create a new booking',
+    tags: ['Bookings'],
+    description: 'Create a new booking for a tour',
     // operationId: '',
     parameters: [],
     requestBody: {

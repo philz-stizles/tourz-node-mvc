@@ -1,7 +1,7 @@
 export default {
   get: {
     summary: 'Get a list of all categories',
-    tags: ['Categories'],
+    tags: ['Users'],
     description: 'Get all sub-categories',
     // operationId: 'getTodos',
     parameters: [],
@@ -13,7 +13,7 @@ export default {
             schema: {
               type: 'array',
               items: {
-                $ref: '#/components/schemas/CategoryInput',
+                $ref: '#/components/schemas/UserInput',
               },
             },
           },
@@ -25,7 +25,7 @@ export default {
           'application/json': {
             schema: {
               type: 'object',
-              $ref: '#/components/schemas/CategoryInput',
+              $ref: '#/components/schemas/UserInput',
             },
           },
         },
