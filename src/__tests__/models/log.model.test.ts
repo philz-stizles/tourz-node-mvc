@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import SubCategory from '@src/models/sub-category.model';
+import Log from '@src/models/log.model';
 
-describe('SubCategory Model', () => {
+describe('Log Model', () => {
   it('has all the required attributes', () => {
     const expectedKeys = ['name', 'slug', 'category', 'createdBy'];
-    const modelAttributes = Object.keys(SubCategory.schema.paths);
+    const modelAttributes = Object.keys(Log.schema.paths);
     expect(expectedKeys.every(key => modelAttributes.includes(key))).toEqual(
       true
     );
@@ -12,24 +12,22 @@ describe('SubCategory Model', () => {
 
   it('should create a new category', async () => {
     try {
-      // Create new mock SubCategory
-      const newMockSubCategory = {
+      // Create new mock Log
+      const newMockLog = {
         name: 'Shoes',
         slug: 'shoes',
         category: new mongoose.Types.ObjectId(),
         createdBy: new mongoose.Types.ObjectId(),
       };
 
-      // Save new mock SubCategory
-      const createdMockSubCategory = await new SubCategory(
-        newMockSubCategory
-      ).save();
+      // Save new mock Log
+      const createdMockLog = await new Log(newMockLog).save();
 
-      expect(createdMockSubCategory._id).toBeDefined();
-      expect(createdMockSubCategory.name).toEqual(newMockSubCategory.name);
-      expect(createdMockSubCategory.slug).toEqual(newMockSubCategory.slug);
-      expect(createdMockSubCategory.createdBy.toHexString()).toEqual(
-        newMockSubCategory.createdBy.toHexString()
+      expect(createdMockLog._id).toBeDefined();
+      expect(createdMockLog.name).toEqual(newMockLog.name);
+      expect(createdMockLog.slug).toEqual(newMockLog.slug);
+      expect(createdMockLog.createdBy.toHexString()).toEqual(
+        newMockLog.createdBy.toHexString()
       );
     } catch (err: any | unknown) {
       throw new Error(err);
@@ -38,7 +36,7 @@ describe('SubCategory Model', () => {
 
   it('should throw an error if the name field is empty', async () => {
     try {
-      await new SubCategory({
+      await new Log({
         name: '',
         slug: 'shoes',
         category: new mongoose.Types.ObjectId(),
@@ -51,19 +49,19 @@ describe('SubCategory Model', () => {
 
   it('should throw an error if the name field is duplicated', async () => {
     try {
-      // Create new mock SubCategory
-      const newMockSubCategory = {
+      // Create new mock Log
+      const newMockLog = {
         name: 'Shoes',
         slug: 'shoes',
         category: new mongoose.Types.ObjectId(),
         createdBy: new mongoose.Types.ObjectId(),
       };
 
-      // Save new mock SubCategory
-      await new SubCategory(newMockSubCategory).save();
+      // Save new mock Log
+      await new Log(newMockLog).save();
 
-      // Save duplicate mock SubCategory
-      await new SubCategory(newMockSubCategory).save();
+      // Save duplicate mock Log
+      await new Log(newMockLog).save();
     } catch (err: any | unknown) {
       expect(err.code).toEqual(11000);
     }
@@ -71,7 +69,7 @@ describe('SubCategory Model', () => {
 
   it('should throw an error if the slug field is empty', async () => {
     try {
-      await new SubCategory({
+      await new Log({
         name: 'Shoes',
         slug: '',
         category: new mongoose.Types.ObjectId(),
@@ -84,7 +82,7 @@ describe('SubCategory Model', () => {
 
   it('should throw an error if the category field is empty', async () => {
     try {
-      await new SubCategory({
+      await new Log({
         name: 'Shoes',
         slug: 'shoes',
         createdBy: new mongoose.Types.ObjectId(),

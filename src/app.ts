@@ -60,7 +60,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// SECURITY - Anti Brute Force Attacks - Set rate limiting
+// Rate limiting - Anti Brute Force Attacks ************************************************************ |
 // app.use(
 //   '/api',
 //   expressRateLimit({
@@ -86,7 +86,7 @@ if (process.env.NODE_ENV === 'development') {
 // app.use(mongoSanitize()); // It will look at the req.body, req.query and req.params, and basically
 // filter out all of the dollar($) signs and dots(.) in the values
 
-// SECURITY - Data sanitization against XSS - cross site scripting
+// SECURITY - Data sanitization against XSS - cross site scripting ************************************ |
 // app.use(xss()); // This would clean any user input from malicious html code
 
 // Security - Prevent Parameter Pollution
