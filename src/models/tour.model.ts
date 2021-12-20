@@ -37,8 +37,8 @@ interface ITour {
   difficulty: string;
   slug: string;
   guides: PopulatedDoc<IUserDocument & Document>[];
-  createdAt: any;
-  modifiedAt: any;
+  createdAt: Date;
+  modifiedAt: Date;
 }
 
 export interface ITourDocument extends ITour, Document {}

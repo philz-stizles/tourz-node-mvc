@@ -1,68 +1,70 @@
-import Vendor from '@src/models/vendor.model';
+import Transaction from '@src/models/transaction.model';
 
-describe('Vendor Model', () => {
+describe('Transaction Model', () => {
   it('has all the required attributes', () => {
-    const expectedKeys = ['name', 'logo', 'locations', 'images', 'users'];
-    const modelAttributes = Object.keys(Vendor.schema.paths);
+    const expectedKeys = ['transactionId', 'tour', 'createdBy', 'status'];
+    const modelAttributes = Object.keys(Transaction.schema.paths);
     expect(expectedKeys.every(key => modelAttributes.includes(key))).toEqual(
       true
     );
   });
 
-  it('should create a new vendor', async () => {
-    try {
-      // Create new mock Vendor
-      const newMockVendor = {
-        name: 'Collectables co.',
-        logo: Buffer.from([0b11110000, 0b10011111]),
-        bio: 'A gadget selling company',
-      };
+  // it('should create a new transaction', async () => {
+  //   try {
+  //     // Create new mock Transaction
+  //     const newMockTransaction = {
+  //       transactionId: 'Collectables co.',
+  //       logo: Buffer.from([0b11110000, 0b10011111]),
+  //       bio: 'A gadget selling company',
+  //     };
 
-      // Save new mock Vendor
-      const createdMockVendor = await new Vendor(newMockVendor).save();
+  //     // Save new mock Transaction
+  //     const createdMockTransaction = await new Transaction(
+  //       newMockTransaction
+  //     ).save();
 
-      expect(createdMockVendor._id).toBeDefined();
-      expect(createdMockVendor.name).toEqual(newMockVendor.name);
-      expect(createdMockVendor.bio).toEqual(newMockVendor.bio);
-      expect(createdMockVendor.createdAt).toBeDefined();
-      expect(createdMockVendor.updatedAt).toBeDefined();
-    } catch (err: any | unknown) {
-      throw new Error(err);
-    }
-  });
+  //     expect(createdMockTransaction._id).toBeDefined();
+  //     expect(createdMockTransaction.name).toEqual(newMockTransaction.name);
+  //     expect(createdMockTransaction.bio).toEqual(newMockTransaction.bio);
+  //     expect(createdMockTransaction.createdAt).toBeDefined();
+  //     expect(createdMockTransaction.updatedAt).toBeDefined();
+  //   } catch (err: any | unknown) {
+  //     throw new Error(err);
+  //   }
+  // });
 
-  it('should throw an error if the name field is empty', async () => {
-    try {
-      await new Vendor({
-        name: '',
-        logo: Buffer.from([0b11110000, 0b10011111]),
-        bio: 'A gadget selling company',
-      }).save();
-    } catch (err: any | unknown) {
-      expect(err.errors.name.kind).toEqual('required');
-    }
-  });
+  // it('should throw an error if the name field is empty', async () => {
+  //   try {
+  //     await new Transaction({
+  //       name: '',
+  //       logo: Buffer.from([0b11110000, 0b10011111]),
+  //       bio: 'A gadget selling company',
+  //     }).save();
+  //   } catch (err: any | unknown) {
+  //     expect(err.errors.name.kind).toEqual('required');
+  //   }
+  // });
 
-  it('should throw an error if the logo field is empty', async () => {
-    try {
-      await new Vendor({
-        name: 'Collectables co.',
-        bio: 'A gadget selling company',
-      }).save();
-    } catch (err: any | unknown) {
-      expect(err.errors.logo.kind).toEqual('required');
-    }
-  });
+  // it('should throw an error if the logo field is empty', async () => {
+  //   try {
+  //     await new Transaction({
+  //       name: 'Collectables co.',
+  //       bio: 'A gadget selling company',
+  //     }).save();
+  //   } catch (err: any | unknown) {
+  //     expect(err.errors.logo.kind).toEqual('required');
+  //   }
+  // });
 
-  it('should throw an error if the bio field is empty', async () => {
-    try {
-      await new Vendor({
-        name: 'Collectables co.',
-        logo: Buffer.from([0b11110000, 0b10011111]),
-        bio: '',
-      }).save();
-    } catch (err: any | unknown) {
-      expect(err.errors.bio.kind).toEqual('required');
-    }
-  });
+  // it('should throw an error if the bio field is empty', async () => {
+  //   try {
+  //     await new Transaction({
+  //       name: 'Collectables co.',
+  //       logo: Buffer.from([0b11110000, 0b10011111]),
+  //       bio: '',
+  //     }).save();
+  //   } catch (err: any | unknown) {
+  //     expect(err.errors.bio.kind).toEqual('required');
+  //   }
+  // });
 });

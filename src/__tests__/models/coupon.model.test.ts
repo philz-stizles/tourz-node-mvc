@@ -3,7 +3,7 @@ import Coupon from '@src/models/coupon.model';
 
 describe('Coupon Model', () => {
   it('has all the required attributes', () => {
-    const expectedKeys = ['name', 'expiry', 'discount', 'createdBy'];
+    const expectedKeys = ['code', 'expiry', 'discount', 'createdBy'];
     const modelAttributes = Object.keys(Coupon.schema.paths);
     expect(expectedKeys.every(key => modelAttributes.includes(key))).toEqual(
       true
@@ -14,7 +14,7 @@ describe('Coupon Model', () => {
     try {
       // Create new mock Coupon
       const newMockCoupon = {
-        name: 'SEW123',
+        code: 'SEW123',
         expiry: new Date(),
         discount: 12,
         createdBy: new mongoose.Types.ObjectId(),
@@ -24,7 +24,7 @@ describe('Coupon Model', () => {
       const createdMockCoupon = await new Coupon(newMockCoupon).save();
 
       expect(createdMockCoupon._id).toBeDefined();
-      expect(createdMockCoupon.name).toEqual(newMockCoupon.name);
+      expect(createdMockCoupon.code).toEqual(newMockCoupon.code);
       expect(createdMockCoupon.expiry).toEqual(newMockCoupon.expiry);
       expect(createdMockCoupon.discount).toEqual(newMockCoupon.discount);
       expect(createdMockCoupon.createdBy.toHexString()).toEqual(
@@ -40,20 +40,20 @@ describe('Coupon Model', () => {
   it('should throw an error if the name field is empty', async () => {
     try {
       await new Coupon({
-        name: '',
+        code: '',
         expiry: new Date(),
         discount: 12,
         createBy: new mongoose.Types.ObjectId().toHexString(),
       }).save();
     } catch (err: any | unknown) {
-      expect(err.errors.name.kind).toEqual('required');
+      expect(err.errors.code.kind).toEqual('required');
     }
   });
 
   it('should throw an error if the expiry field is empty', async () => {
     try {
       await new Coupon({
-        name: 'SEW123',
+        code: 'SEW123',
         discount: 12,
         createBy: new mongoose.Types.ObjectId().toHexString(),
       }).save();
@@ -62,11 +62,11 @@ describe('Coupon Model', () => {
     }
   });
 
-  it('should throw an error if the name field is duplicated', async () => {
+  it('should throw an error if the code field is duplicated', async () => {
     try {
       // Create new mock Coupon
       const newMockCoupon = {
-        name: 'SEW123',
+        code: 'SEW123',
         expiry: new Date(),
         discount: 12,
         createBy: new mongoose.Types.ObjectId().toHexString(),
@@ -85,7 +85,7 @@ describe('Coupon Model', () => {
   it('should throw an error if the discount field is empty', async () => {
     try {
       await new Coupon({
-        name: 'SEW123',
+        code: 'SEW123',
         expiry: new Date(),
         createBy: new mongoose.Types.ObjectId().toHexString(),
       }).save();
@@ -97,7 +97,7 @@ describe('Coupon Model', () => {
   it('should throw an error if the createdBy field is empty', async () => {
     try {
       await new Coupon({
-        name: 'SEW123',
+        code: 'SEW123',
         expiry: new Date(),
         discount: 12,
       }).save();

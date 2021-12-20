@@ -24,8 +24,6 @@ describe('Log Model', () => {
       const createdMockLog = await new Log(newMockLog).save();
 
       expect(createdMockLog._id).toBeDefined();
-      expect(createdMockLog.name).toEqual(newMockLog.name);
-      expect(createdMockLog.slug).toEqual(newMockLog.slug);
       expect(createdMockLog.createdBy.toHexString()).toEqual(
         newMockLog.createdBy.toHexString()
       );

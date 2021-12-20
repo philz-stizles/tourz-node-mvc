@@ -1,37 +1,47 @@
 import mongoose from 'mongoose';
 import Booking from '@src/models/booking.model';
+import Tour from '@src/models/tour.model';
 
-const createMockProducts = (noOfProducts = 1) => {
-  const products = [];
-  if (noOfProducts > 0) {
-    for (let i = noOfProducts; i > 0; i -= 1) {
-      // Create new mock Product
-      products.push({
-        product: { _id: new mongoose.Types.ObjectId().toHexString() },
-        count: 2,
-        color: 'green',
-        price: 123,
-      });
-    }
-  }
-
-  return {
-    products,
-    totalAmount: products.reduce(
-      (acc, { count, price }) => acc + count * price,
-      0
-    ),
-  };
-};
+const createMockTour = async () =>
+  await new Tour({
+    startLocation: {
+      description: 'Miami, USA',
+      type: 'Point',
+      coordinates: [-80.185942, 25.774772],
+      address: '301 Biscayne Blvd, Miami, FL 33132, USA',
+    },
+    ratingsAverage: 4.8,
+    ratingsQuantity: 6,
+    images: ['tour-2-1.jpg', 'tour-2-2.jpg', 'tour-2-3.jpg'],
+    startDates: [
+      '2021-06-19T09:00:00.000Z',
+      '2021-07-20T09:00:00.000Z',
+      '2021-08-18T09:00:00.000Z',
+    ],
+    name: 'The Sea Explorer',
+    duration: 7,
+    maxGroupSize: 15,
+    difficulty: 'medium',
+    guides: ['5c8a22c62f8fb814b56fa18b', '5c8a1f4e2f8fb814b56fa185'],
+    price: 497,
+    summary: 'Exploring the jaw-dropping US east coast by foot and by boat',
+    description:
+      'Excepteur sint occaecat cupidatat eserunt mollit anim id est laborum.\n Lorem sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis  in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+    imageCover: 'tour-2-cover.jpg',
+    locations: [
+      {
+        _id: '5c88fa8cf4afda39709c2959',
+        description: 'Lummus Park Beach',
+        type: 'Point',
+        coordinates: [-80.128473, 25.781842],
+        day: 1,
+      },
+    ],
+  }).save();
 
 describe('Booking Model', () => {
   it('has all the required attributes', () => {
-    const expectedKeys = [
-      'products',
-      'totalAmount',
-      'totalAfterDiscount',
-      'createdBy',
-    ];
+    const expectedKeys = ['price', 'tour', 'isPaid', 'createdBy'];
     const modelAttributes = Object.keys(Booking.schema.paths);
     expect(expectedKeys.every(key => modelAttributes.includes(key))).toEqual(
       true
@@ -41,12 +51,12 @@ describe('Booking Model', () => {
   it('should create a new booking', async () => {
     try {
       // Mock products
-      const { products, totalAmount } = createMockProducts();
+      const tour = await createMockTour();
 
       // Create new mock Booking
       const newMockBooking = {
-        products,
-        totalAmount,
+        tour: tour.id,
+        price: tour.price,
         createdBy: new mongoose.Types.ObjectId(),
       };
 
@@ -55,9 +65,7 @@ describe('Booking Model', () => {
 
       expect(createdMockBooking._id).toBeDefined();
       // expect(createdMockBooking.toJSON().products).toEqual(newMockBooking.products);
-      expect(createdMockBooking.totalAmount).toEqual(
-        newMockBooking.totalAmount
-      );
+      expect(createdMockBooking.price).toEqual(newMockBooking.price);
       expect(createdMockBooking.createdBy.toHexString()).toEqual(
         newMockBooking.createdBy.toHexString()
       );
@@ -82,10 +90,10 @@ describe('Booking Model', () => {
   it('should throw an error if the totalAmount field is empty', async () => {
     try {
       // Mock products
-      const { products } = createMockProducts(0);
+      const tour = await createMockTour();
 
       await new Booking({
-        products,
+        tour: tour.id,
         totalAmount: 0,
         createdBy: new mongoose.Types.ObjectId().toHexString(),
       }).save();

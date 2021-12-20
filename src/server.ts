@@ -41,6 +41,9 @@ const startUp = async (expressApp: Express) => {
   const server = httpServer.listen(PORT, () => {
     console.log(`🚀 Server running on ${PORT} ${process.env.NODE_ENV}`);
     console.log(`🚀 API Docs @ http://localhost:${PORT}/api-docs`);
+    console.log(
+      `🚀 Website available @http://localhost:${PORT} on ${process.env.NODE_ENV}`
+    );
   });
 
   process.on('unhandledRejection', (err?: Error) => {

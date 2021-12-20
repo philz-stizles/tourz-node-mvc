@@ -1,20 +1,19 @@
-import { model, Model, Schema } from 'mongoose';
-import validator from 'validator'; // Put as much business logic in the models to keep the controllers as simple and lean as possible
+import { model, Model, Schema, Document } from 'mongoose';
 
-export interface IRole {
+interface IRole {
   name: string;
   description: string;
   permissions: any[];
   isActive: boolean;
   createdAt: any;
-  modifiedAt: any;
+  updatedAt: any;
 }
 
 export interface IRoleDocument extends IRole, Document {}
 
 export interface IRoleModel extends Model<IRoleDocument> {}
 
-const roleSchema = new Schema<IRoleDocument, IRoleModel>(
+const roleSchema = new Schema(
   {
     name: {
       type: String,
@@ -27,8 +26,6 @@ const roleSchema = new Schema<IRoleDocument, IRoleModel>(
       required: [true, 'A user must have an email'],
       trim: true,
       unique: true,
-      lowercase: true,
-      validate: [validator.isEmail, 'Please provide a valid email'],
     },
     permissions: [],
     isActive: { type: Boolean, default: true, select: false },

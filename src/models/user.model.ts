@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { Model, Schema, model, Types, Document } from 'mongoose';
+import { Model, Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { generateToken } from '@src/utils/auth.utils';
 
@@ -15,6 +15,8 @@ interface IUser {
   avatar?: string;
   password?: string;
   confirmPassword?: string;
+  isTwoFactorAuthenticationEnabled: boolean;
+  twoFactorAuthenticationCode: string;
   passwordChangedAt?: Date;
   passwordResetExpiresIn?: number;
   passwordResetToken: string | undefined;
@@ -78,6 +80,8 @@ const userSchema = new Schema(
       //   message: 'Passwords do not match',
       // },
     },
+    isTwoFactorAuthenticationEnabled: { type: Boolean, default: false },
+    twoFactorAuthenticationCode: String,
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpiresIn: Date,
@@ -144,6 +148,20 @@ userSchema.methods.createPasswordResetToken = function () {
   this.passwordResetExpiresIn = Date.now() + 10 * 60 * 1000;
 
   return resetToken;
+};
+
+userSchema.methods.toJSON = function () {
+  // Create a JSON representation of the user
+  const userObject = this.toObject();
+
+  // Remove private data
+  delete userObject.password;
+  delete userObject.confirmPassword;
+  delete userObject.tokens;
+  delete userObject.avatar; // Remove avatar here coz the data is large for JSON requests
+
+  // Return public profile
+  return userObject;
 };
 
 export default model<IUserDocument, IUserModel>('User', userSchema);

@@ -16,7 +16,7 @@ describe('Review Model', () => {
       const newMockReview = {
         review: 'Product was amazing',
         rating: 5,
-        product: new mongoose.Types.ObjectId(),
+        tour: new mongoose.Types.ObjectId(),
         createdBy: new mongoose.Types.ObjectId(),
       };
 
@@ -26,8 +26,8 @@ describe('Review Model', () => {
       expect(createdMockReview._id).toBeDefined();
       expect(createdMockReview.review).toEqual(newMockReview.review);
       expect(createdMockReview.rating).toEqual(newMockReview.rating);
-      expect(createdMockReview.product.toHexString()).toEqual(
-        newMockReview.product.toHexString()
+      expect(createdMockReview.tour.toHexString()).toEqual(
+        newMockReview.tour.toHexString()
       );
       expect(createdMockReview.createdBy.toHexString()).toEqual(
         newMockReview.createdBy.toHexString()

@@ -1,6 +1,6 @@
 import { DocumentDefinition, FilterQuery, LeanDocument } from 'mongoose';
 import { omit } from 'lodash';
-import User, { IUserDocument } from '@src/models/mongoose/user.model';
+import User, { IUserDocument } from '@src/models/user.model';
 
 export const createUser = async (
   modelObject: DocumentDefinition<IUserDocument>
@@ -28,7 +28,7 @@ export const validatePassword = async ({
 }: {
   email: IUserDocument['email'];
   password: string;
-}): Promise<false | Pick<LeanDocument<IUserDocument>, 'name'>> => {
+}): Promise<false | Pick<LeanDocument<IUserDocument>, 'username'>> => {
   const user = await User.findOne({ email });
 
   if (!user) {

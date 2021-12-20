@@ -5,13 +5,18 @@ describe('User Model', () => {
     const expectedKeys = [
       'fullname',
       'username',
-      'name',
       'email',
       'avatar',
       'password',
+      'isTwoFactorAuthenticationEnabled',
+      'twoFactorAuthenticationCode',
+      'confirmPassword',
       'passwordChangedAt',
       'passwordResetExpiresIn',
       'passwordResetToken',
+      'isActive',
+      'roles',
+      'tokens',
     ];
     const modelAttributes = Object.keys(User.schema.paths);
     expect(expectedKeys.every(key => modelAttributes.includes(key))).toEqual(
@@ -35,6 +40,7 @@ describe('User Model', () => {
       expect(createdMockUser.fullname).toEqual(newMockUser.fullname);
       expect(createdMockUser.email).toEqual(newMockUser.email);
       expect(createdMockUser.password).toBeDefined();
+      expect(createdMockUser.confirmPassword).toBeUndefined();
       expect(createdMockUser.createdAt).toBeDefined();
       expect(createdMockUser.updatedAt).toBeDefined();
     } catch (err: any | unknown) {
