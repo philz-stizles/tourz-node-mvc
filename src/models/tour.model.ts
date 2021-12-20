@@ -18,7 +18,7 @@ type Location = {
   day: number;
 };
 
-export interface ITour {
+interface ITour {
   name: string;
   description: string;
   summary: string;

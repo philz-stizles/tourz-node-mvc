@@ -9,26 +9,26 @@ This is an e-commerce back end resource that enables users to signup and purchas
 
 ## Contents
 
-[(1.) Technologies](#technologies)
-[(2.) Features](#technologies)
-[(3.) Typescript](#typescript)
-[(4.) Eslint](#eslint)
-[(5.) Prettier](#prettier)
-[(6.) Jest](#jest)
-[(7.) Environment Variables](#environment-variables)
-[(8.) File Uploads](#file-uploads)
-[(9.) Bull](#bull)
-[(10.) Redis](#redis)
-[(11.) GraphQL](#graphql)
-[(12.) Socket.io](#socket.io)
-[(13.) AWS](#aws)
-[(14.) SMS](#sms)
-[(15.) Caching](#caching)
-[(16.) Pre-Deployment](#pre-deployment)
-[(17.) Deployment](#deployment)
-[(18.) Swagger Documentation](#swagger-documentation)
-[(19.) Security issues and best practices](#security-issues-and-best-practices)
-[(20.) Compatibility information](#compatibility-information)
+[1. Technologies](#technologies)
+[2. Features](#technologies)
+[3. Typescript](#typescript)
+[4. Eslint](#eslint)
+[5. Prettier](#prettier)
+[6. Jest](#jest)
+[7. Environment Variables](#environment-variables)
+[8. File Uploads](#file-uploads)
+[9. Bull](#bull)
+[10. Redis](#redis)
+[11. GraphQL](#graphql)
+[12. Socket.io](#socket.io)
+[13. AWS](#aws)
+[14. SMS](#sms)
+[15. Caching](#caching)
+[16. Pre-Deployment](#pre-deployment)
+[17. Deployment](#deployment)
+[18. Swagger Documentation](#swagger-documentation)
+[19. Security issues and best practices](#security-issues-and-best-practices)
+[20. Compatibility information](#compatibility-information)
 
 ## Technologies
 
@@ -150,13 +150,12 @@ This is an e-commerce back end resource that enables users to signup and purchas
 Install packages:
 
     npm install @graphql-tools/load-files @graphql-tools/schema @graphql-tools/utils
-    npm apollo-datasource-mongodb
-    npm apollo-server-cache-redis
-    npm apollo-server-express
-    npm graphql
-    npm graphql-subscriptions
-    npm graphql-upload
-    npm install apollo-server-express subscriptions-transport-ws @graphql-tools/schema
+    npm install apollo-datasource-mongodb
+    npm install apollo-server-cache-redis
+    npm install graphql apollo-server-express
+    npm install graphql-upload
+    npm install @graphql-tools/load-files
+    npm install graphql-subscriptions subscriptions-transport-ws
 
 ## Socket.io
 

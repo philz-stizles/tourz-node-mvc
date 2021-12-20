@@ -1,8 +1,8 @@
 import path from 'path';
 import express, { Express } from 'express';
 import cookieParser from 'cookie-parser';
-// import expressRateLimit from 'express-rate-limit';
-// import mongoSanitize from 'express-mongo-sanitize';
+import expressRateLimit from 'express-rate-limit';
+import mongoSanitize from 'express-mongo-sanitize';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
@@ -47,7 +47,7 @@ app.use(express.static(path.join(__dirname, 'public'))); // This says, anytime t
 // in the root of the public folder
 app.use(express.static(path.join(__dirname, 'uploads')));
 
-// SECURITY - Anti Cross-site Scripting - ************************************************************** |
+// Security - Anti Cross-site Scripting - ************************************************************** |
 // Security HTTP headers
 app.use(
   helmet({
@@ -61,18 +61,18 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Rate limiting - Anti Brute Force Attacks ************************************************************ |
-// app.use(
-//   '/api',
-//   expressRateLimit({
-//     // By specifying api, this would then affect all the routes since they all have /api
-//     max: 100, // no of requests per IP
-//     windowMs: 60 * 60 * 1000, // per period(1 hr)
-//     message: {
-//       status: 429,
-//       message: 'Too many requests from this IP, please try again in an hour',
-//     },
-//   })
-// );
+app.use(
+  '/api',
+  expressRateLimit({
+    // By specifying api, this would then affect all the routes since they all have /api
+    max: 100, // no of requests per IP
+    windowMs: 60 * 60 * 1000, // per period(1 hr)
+    message: {
+      status: 429,
+      message: 'Too many requests from this IP, please try again in an hour',
+    },
+  })
+);
 
 // STRIPE CHECKOUT WEBHOOK
 // When we needs this body in a raw form
@@ -82,12 +82,14 @@ if (process.env.NODE_ENV === 'development') {
 //   webhookCheckout
 // );
 
-// SECURITY - Data sanitization against NoSQL query injection
-// app.use(mongoSanitize()); // It will look at the req.body, req.query and req.params, and basically
+// Security - SQL Injection ***************************************************************************************** |
+// Data sanitization against NoSQL query injection. |
+app.use(mongoSanitize()); // It will look at the req.body, req.query and req.params, and basically
 // filter out all of the dollar($) signs and dots(.) in the values
 
-// SECURITY - Data sanitization against XSS - cross site scripting ************************************ |
-// app.use(xss()); // This would clean any user input from malicious html code
+// Security - Cross Site Scripting(XSS) **************************************************************************************** |
+// Data sanitization against XSS - cross site scripting. |
+app.use(xss()); // This would clean any user input from malicious html code
 
 // Security - Prevent Parameter Pollution
 // app.use(

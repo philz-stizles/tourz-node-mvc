@@ -1,4 +1,4 @@
-import { Model, model, PopulatedDoc, Schema, Types } from 'mongoose';
+import { Model, model, PopulatedDoc, Schema, Types, Document } from 'mongoose';
 // Interfaces.
 import { ITourDocument } from './tour.model';
 import { IUserDocument } from './user.model';

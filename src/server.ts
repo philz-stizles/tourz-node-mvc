@@ -32,7 +32,7 @@ const startUp = async (expressApp: Express) => {
   // unlike with express where the server was implicitly create for us
 
   // Initialize GraphQL
-  // initGraphQL(expressApp, httpServer);
+  initGraphQL(expressApp, httpServer);
 
   // Initialize Socket.io
   initSocketIO(httpServer);

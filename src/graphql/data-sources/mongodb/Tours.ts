@@ -3,7 +3,7 @@ import { MongoDataSource } from 'apollo-datasource-mongodb';
 import { ApolloError } from 'apollo-server-express';
 import { IContext } from '@src/graphql/context';
 import Tour, { ITourDocument } from '@src/models/tour.model';
-import { ITourCreate, ITourUpdate } from '@src/graphql/interfaces/Tour';
+import { ITourCreate, ITourUpdate } from '@src/interfaces/tour';
 
 export class Tours extends MongoDataSource<ITourDocument, IContext> {
   async getById(id: string): Promise<ITourDocument | null | undefined> {

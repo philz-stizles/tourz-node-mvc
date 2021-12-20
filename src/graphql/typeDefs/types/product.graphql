@@ -1,15 +1,15 @@
 # Query type
 type Query {
-  products: [Product]
+  tours: [Product]
 }
 
 # Mutation type
 type Mutation {
-  createProduct(data: ProductCreateInput): ProductMutationResponse
-  updateProduct(data: ProductUpdateInput): ProductMutationResponse
-  archiveProduct(id: String): [Product]
-  uploadProductFile(upload: Upload!): Response
-  removeProductFile(publicId: String): Response
+  createTour(data: ProductCreateInput): ProductMutationResponse
+  updateTour(data: ProductUpdateInput): ProductMutationResponse
+  archiveTour(id: String): [Product]
+  uploadTourFile(upload: Upload!): Response
+  removeTourFile(publicId: String): Response
 }
 
 type Product {

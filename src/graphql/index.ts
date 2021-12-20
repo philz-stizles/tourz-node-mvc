@@ -19,7 +19,7 @@ import resolvers from '@src/graphql/resolvers';
 import formatError from '@src/graphql/error';
 import context from '@src/graphql/context';
 
-const initGraphQL = (app: Express, server: Server): void => {
+const initGraphQL = async (app: Express, server: Server): Promise<void> => {
   // If your server is deployed to an environment where NODE_ENV is set to production,
   // GraphQL Playground and introspection are disabled by default. To enable them,
   // set playground: true and introspection: true
@@ -85,6 +85,9 @@ const initGraphQL = (app: Express, server: Server): void => {
       maxFiles: 5, // Maximum allowed number of files.
     })
   );
+
+  // Wait for server to start up
+  await apolloServer.start();
 
   apolloServer.applyMiddleware({ app, path: '/graphql' });
 

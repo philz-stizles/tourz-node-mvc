@@ -3,18 +3,18 @@
 import fs from 'fs';
 import { finished } from 'stream/promises';
 import { PubSub } from 'graphql-subscriptions';
-import { IProductDocument } from '@src/models/product.model';
+import { ITourDocument } from '@src/models/tour.model';
 import { AuthenticationError } from 'apollo-server-express';
 import { IResponse, IUpload } from '../interfaces';
-import * as cloudinary from '@src/services/cloudinary/cloudinary.services';
+import * as cloudinary from '@src/services/storage/cloudinary.services';
 
 const pubsub = new PubSub();
 
-export interface IProductResponse extends IResponse {
-  data: IProductDocument;
+export interface ITourResponse extends IResponse {
+  data: ITourDocument;
 }
 
-export interface IProductCreate {
+export interface ITourCreate {
   title: string;
   description: string;
   price: number;
@@ -27,7 +27,7 @@ export interface IProductCreate {
   brand: string;
 }
 
-export interface IProductUpdate {
+export interface ITourUpdate {
   _id: string;
   title: string;
   description: string;
@@ -41,12 +41,12 @@ export interface IProductUpdate {
   brand: string;
 }
 
-export const productMutations = {
-  createProduct: async (
+export const tourMutations = {
+  createTour: async (
     _parent: any,
     args: any,
     context: any
-  ): Promise<IProductResponse> => {
+  ): Promise<ITourResponse> => {
     const { isAuthenticated, dataSources } = context;
     if (!isAuthenticated) {
       throw new AuthenticationError('Please register to complete this process');
@@ -72,44 +72,44 @@ export const productMutations = {
       await finished(out);
     }
 
-    const createdProduct = await dataSources.products.create(args.data);
+    const createdTour = await dataSources.tours.create(args.data);
 
-    pubsub.publish('PRODUCT_CREATED', { createdProduct });
+    pubsub.publish('TOUR_CREATED', { createdTour });
 
     return {
       statusCode: 201,
       message: 'Created successful',
       status: true,
-      data: createdProduct,
+      data: createdTour,
     };
   },
-  updateProduct: async (
+  updateTour: async (
     _parent: any,
     args: any,
     context: any
-  ): Promise<IProductResponse> => {
-    const updatedProduct = await context.dataSources.products.update(args.data);
+  ): Promise<ITourResponse> => {
+    const updatedTour = await context.dataSources.tours.update(args.data);
     return {
       statusCode: 200,
       message: 'Updated successful',
       status: true,
-      data: updatedProduct,
+      data: updatedTour,
     };
   },
-  archiveProduct: async (
+  archiveTour: async (
     _parent: any,
     args: any,
     context: any
-  ): Promise<IProductResponse> => {
-    const archivedProduct = await context.dataSources.products.archive(args.id);
+  ): Promise<ITourResponse> => {
+    const archivedTour = await context.dataSources.tours.archive(args.id);
     return {
       statusCode: 200,
       message: 'Archived successful',
       status: true,
-      data: archivedProduct,
+      data: archivedTour,
     };
   },
-  uploadProductFile: async (
+  uploadTourFile: async (
     _parent: any,
     args: any,
     context: any
@@ -135,7 +135,7 @@ export const productMutations = {
       status: true,
     };
   },
-  removeProductFile: async (
+  removeTourFile: async (
     _parent: any,
     args: any,
     context: any
@@ -153,18 +153,18 @@ export const productMutations = {
   },
 };
 
-export const productQueries = {
-  async products(
+export const tourQueries = {
+  async tours(
     _parent: any,
     _args: any,
     context: any
-  ): Promise<IProductDocument[]> {
-    return await context.dataSources.products.list();
+  ): Promise<ITourDocument[]> {
+    return await context.dataSources.tours.list();
   },
 };
 
-export const productSubscriptions = {
-  createdProduct: {
-    subscribe: () => pubsub.asyncIterator(['PRODUCT_CREATED']),
+export const tourSubscriptions = {
+  createdTour: {
+    subscribe: () => pubsub.asyncIterator(['TOUR_CREATED']),
   },
 };

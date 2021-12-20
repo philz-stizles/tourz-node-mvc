@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { Model, Schema, model, Types } from 'mongoose';
+import { Model, Schema, model, Types, Document } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { generateToken } from '@src/utils/auth.utils';
 
@@ -9,7 +9,6 @@ interface IUserToken {
 
 // Create an interface representing a document in MongoDB.
 interface IUser {
-  _id: Types.ObjectId;
   fullname?: string;
   username: string;
   email: string;

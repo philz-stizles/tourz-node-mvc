@@ -1,4 +1,4 @@
-import { IUpload } from '../interfaces';
+import { IUpload } from '@src/graphql/interfaces';
 
 export interface ITourCreate {
   title: string;

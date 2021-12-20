@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ILoginResponse, ISignupResponse } from '../interfaces';
+import { ILoginResponse, ISignupResponse } from '@src/interfaces/auth';
 
 export const authMutations = {
   signup: async (

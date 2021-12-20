@@ -11,9 +11,9 @@ import {
 import { categoryQueries } from '@src/graphql/resolvers/category';
 import { subCategoryQueries } from '@src/graphql/resolvers/sub-category';
 import {
-  productQueries,
-  productMutations,
-} from '@src/graphql/resolvers/product.resolvers';
+  tourQueries,
+  tourMutations,
+} from '@src/graphql/resolvers/tour.resolvers';
 import {
   couponMutations,
   couponQueries,
@@ -28,13 +28,13 @@ const resolvers = {
     ...authQueries,
     ...categoryQueries,
     ...subCategoryQueries,
-    ...productQueries,
+    ...tourQueries,
     ...couponQueries,
   },
   Mutation: {
     ...authMutations,
     ...couponMutations,
-    ...productMutations,
+    ...tourMutations,
   },
   Subscription: {
     ...couponSubscriptions,

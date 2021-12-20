@@ -1,14 +1,13 @@
 /* eslint-disable new-cap */
 import { MongoDataSource } from 'apollo-datasource-mongodb';
 import { ApolloError } from 'apollo-server-express';
-import { Types } from 'mongoose';
 import { IContext } from '@src/graphql/context';
 import User, { IUserDocument } from '@src/models/user.model';
 import {
   ILoggedInUser,
   ILoginCredentials,
   ISignupCredentials,
-} from '@src/graphql/interfaces';
+} from '@src/interfaces/auth';
 import { generateToken } from '@src/utils/auth.utils';
 
 export class Users extends MongoDataSource<IUserDocument, IContext> {

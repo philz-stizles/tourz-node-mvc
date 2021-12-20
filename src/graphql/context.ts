@@ -10,10 +10,7 @@ export interface IContext {
   isAuthenticated: boolean;
 }
 
-const context = async ({
-  req,
-  connection,
-}: ExpressContext): Promise<IContext> => {
+const context = async ({ req }: ExpressContext): Promise<IContext> => {
   // Note: This example uses the `req` argument to access headers,
   // but the arguments received by `context` vary by integration.
   // This means they vary for Express, Koa, Lambda, etc.
