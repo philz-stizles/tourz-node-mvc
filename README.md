@@ -4,8 +4,7 @@
 
 ## Introduction
 
-This is an e-commerce back end resource that enables users to signup and purchase items
-"mongoose": "^5.13.0",
+This is an Tours platform where users can signup as tour guides and user can book tours.
 
 ## Contents
 
@@ -39,7 +38,7 @@ This is an e-commerce back end resource that enables users to signup and purchas
 - Messaging: SES, Twilio
 - Storage: S3, Cloudinary
 - Template Engine: Pug
-- Database: MongoDB, Redis
+- Database: MongoDB("mongoose": "^5.13.0"), Redis
 - Deployment: Docker
 
 ## Features
@@ -109,14 +108,26 @@ This is an e-commerce back end resource that enables users to signup and purchas
 
 ## Jest
 
-- Install dependencies: npm install -D jest ts-jest @types/jest supertest @babel/preset-typescript
-- Configure jest: npx ts-jest config:init
+- Install dependencies:
+
+  ```bash
+    npm install -D jest ts-jest @types/jest supertest @babel/preset-typescript
+  ```
+
+- Configure jest:
+
+  ```bash
+    npx ts-jest config:init
+  ```
+
 - Add your configs to 'jest.config.js'
 - Configure '.eslintrc.js':
+
   env: {
   ...
   jest: true,
   },
+
 - Configure 'package.json'
   "test": "jest",
   "test:watch": "jest --watchAll",

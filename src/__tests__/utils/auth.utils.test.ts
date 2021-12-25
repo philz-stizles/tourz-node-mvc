@@ -1,4 +1,4 @@
-import generateToken from '@src/utils/api.utils';
-import verifyToken from '@src/utils/api.utils';
+import { generateToken } from '@src/utils/auth.utils';
+import { verifyToken } from '@src/utils/auth.utils';
 
 test('should', () => {});

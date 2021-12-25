@@ -1,17 +1,21 @@
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
   preset: 'ts-jest',
   verbose: true,
   testEnvironment: 'node',
+  setupFiles: ['dotenv/config'],
   setupFilesAfterEnv: ['./src/test/setupFilesAfterEnv.ts'],
   coverageDirectory: 'coverage',
-  collectCoverageFrom: ['src/**/*.{js,ts}'],
   coverageReporters: ['json-summary', 'text', 'lcov'],
+  collectCoverageFrom: ['src/**/*.{js,ts}'],
   coveragePathIgnorePatterns: [
     '<rootDir>/build/',
     '<rootDir>/node_modules/',
     '<rootDir>/src/@types/',
     '<rootDir>/src/docs/',
     '<rootDir>/src/graphql/',
+    '<rootDir>/src/test/',
+    '<rootDir>/src/views/',
   ],
   coverageThreshold: {
     global: {
@@ -22,12 +26,15 @@ module.exports = {
     },
   },
   moduleNameMapper: {
-    // 'src/(.*)': '<rootDir>/src/$1',
     'src/(.*)': '<rootDir>/src/$1',
+    '@src/(.*)': '<rootDir>/src/$1',
   },
-  moduleDirectories: ['node_modules', 'src'],
-  testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/'],
-  setupFiles: ['dotenv/config'],
+  // testPathIgnorePatterns: [
+  //   '<rootDir>/dist/',
+  //   '<rootDir>/node_modules/',
+  //   '<rootDir>/coverage/',
+  //   '<rootDir>/.github/',
+  // ],
   // transform: {
   //   'node_modules/variables/.+\\.(j|t)sx?$': 'ts-jest',
   // },
