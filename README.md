@@ -108,7 +108,7 @@ This is an e-commerce back end resource that enables users to signup and purchas
 
 ## Jest
 
-- Install dependencies: npm install -D jest ts-jest @types/jest supertest
+- Install dependencies: npm install -D jest ts-jest @types/jest supertest @babel/preset-typescript
 - Configure jest: npx ts-jest config:init
 - Add your configs to 'jest.config.js'
 - Configure '.eslintrc.js':

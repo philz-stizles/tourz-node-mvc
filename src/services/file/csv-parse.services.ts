@@ -15,7 +15,7 @@ export const parseCSVFile = (
 
   let linesRead = 0;
 
-  const parser = Parse({
+  const parser = Parse.parse({
     delimiter: ',',
     columns,
   });

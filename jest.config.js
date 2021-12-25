@@ -1,10 +1,8 @@
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
   preset: 'ts-jest',
   verbose: true,
   testEnvironment: 'node',
   setupFilesAfterEnv: ['./src/test/setupFilesAfterEnv.ts'],
-  collectCoverage: true,
   coverageDirectory: 'coverage',
   collectCoverageFrom: ['src/**/*.{js,ts}'],
   coverageReporters: ['json-summary', 'text', 'lcov'],
@@ -24,6 +22,7 @@ module.exports = {
     },
   },
   moduleNameMapper: {
+    // 'src/(.*)': '<rootDir>/src/$1',
     'src/(.*)': '<rootDir>/src/$1',
   },
   moduleDirectories: ['node_modules', 'src'],

@@ -124,7 +124,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // Handle Unknown Routes -  *************************************************************************** |
 // i.e routes that are not caught by any routers, but exclude all graphql routes at the server layer.
-app.all('/^(?!graphql)$/', notFoundHandler);
+app.all(/^\/(?!graphql).*/, notFoundHandler);
 
 // Global Error Handling ****************************************************************************** |
 app.use(globalErrorHandler);

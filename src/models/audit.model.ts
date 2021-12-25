@@ -35,4 +35,5 @@ const schema = new Schema(
   { timestamps: { createdAt: true, updatedAt: false } }
 );
 
-export default model<IAuditDocument, IAuditModel>('Audit', schema);
+const Audit = model<IAuditDocument, IAuditModel>('Audit', schema);
+export default Audit;

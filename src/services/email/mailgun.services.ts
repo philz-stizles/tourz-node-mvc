@@ -23,7 +23,10 @@ exports.sendPasswordResetMail = async (
       `,
     };
 
-    const response = await mg.messages.create(process.env.MAILGUN_DOMAIN, data);
+    const response = await mg.messages.create(
+      process.env.MAILGUN_DOMAIN as string,
+      data
+    );
     console.log('MAILGUN', response);
     return true;
   } catch (error: any) {
