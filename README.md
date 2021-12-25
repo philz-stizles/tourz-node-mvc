@@ -11,35 +11,36 @@ This is an e-commerce back end resource that enables users to signup and purchas
 
 1. [Technologies](#technologies)
 2. [Features](#technologies)
-3. [3. Typescript](#typescript)
-4. [4. Eslint](#eslint)
-5. [5. Prettier](#prettier)
-6. [6. Jest](#jest)
-7. [7. Environment Variables](#environment-variables)
-8. [8. File Uploads](#file-uploads)
-   [9. Bull](#bull)
-   [10. Redis](#redis)
-   [11. GraphQL](#graphql)
-   [12. Socket.io](#socket.io)
-   [13. AWS](#aws)
-   [14. SMS](#sms)
-   [15. Caching](#caching)
-   [16. Pre-Deployment](#pre-deployment)
-   [17. Deployment](#deployment)
-   [18. Swagger Documentation](#swagger-documentation)
-   [19. Security issues and best practices](#security-issues-and-best-practices)
-   [20. Compatibility information](#compatibility-information)
+3. [Typescript](#typescript)
+4. [Eslint](#eslint)
+5. [Prettier](#prettier)
+6. [Jest](#jest)
+7. [Environment Variables](#environment-variables)
+8. [File Uploads](#file-uploads)
+9. [Bull](#bull)
+10. [Redis](#redis)
+11. [GraphQL](#graphql)
+12. [Socket.io](#socket.io)
+13. [AWS](#aws)
+14. [SMS](#sms)
+15. [Caching](#caching)
+16. [Pre-Deployment](#pre-deployment)
+17. [Deployment](#deployment)
+18. [Swagger Documentation](#swagger-documentation)
+19. [Security issues and best practices](#security-issues-and-best-practices)
+20. [Compatibility information](#compatibility-information)
 
 ## Technologies
 
-- Node, Express,
-- REST, GraphQL, Sockets
-- Typescript, Eslint, Prettier
-- Jest, Istanbul, Supertest
-- AWS SES, S3, EC2, Serverless
-- Cloudinary
-- MongoDB, Redis
-- Docker
+- Node, Express, REST, MVC, GraphQL, Sockets
+- Dev Tools: Typescript, Eslint, Prettier
+- Testing: Jest, Istanbul, Supertest
+- Server: AWS, EC2, Serverless
+- Messaging: SES, Twilio
+- Storage: S3, Cloudinary
+- Template Engine: Pug
+- Database: MongoDB, Redis
+- Deployment: Docker
 
 ## Features
 
