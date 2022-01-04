@@ -64,23 +64,21 @@ afterAll(async () => {
 //   return [`express:sess=${base64}`];
 // };
 
-// global.signinWithToken = async () => {
-//   // Generate user id
-//   const user = await User.create({
-//     fullname: 'Test Fullname',
-//     email: 'test@test.com',
-//     password: 'test password',
-//     confirmPassword: 'test password',
-//   });
+export const signinWithToken = async () => {
+  // Generate user id
+  const user = await User.create({
+    fullname: 'Test Fullname',
+    email: 'test@test.com',
+    password: 'test password',
+    confirmPassword: 'test password',
+  });
 
-//   // Build a JWT payload. { id }
-//   const payload = {
-//     id: user._id,
-//   };
+  // Build a JWT payload. { id }
+  const payload = {
+    id: user._id,
+  };
 
-//   // Create the JWT.
-//   const token = jwt.sign(payload, process.env.JWT_AUTH_SECRET as string);
-
-//   // return a string that is the cookie with the encoded data.
-//   return token;
-// };
+  // Create the JWT.
+  const token = jwt.sign(payload, process.env.JWT_AUTH_SECRET as string);
+  return token;
+};

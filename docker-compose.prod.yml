@@ -1,11 +1,7 @@
 version: '3.7'
 services:
-  # nginx
-  #   restart: always
-  #   networking:
-  #   depends_on:
-  api
-    container_name: buyemall-api
+  tourz-app:
+    container_name: tourz-app
     restart: always
     build:
       dockerfile: Dockerfile # The name of the docker config file
@@ -21,10 +17,10 @@ services:
     environment:
       - REDIS_DB_URI=redis
       - REDIS_DB_PORT=6379
-      - MONGO_DB_URI=mongodb://mongo:27017/buyemall-api-prod-db
+      - MONGO_DB_URI=mongodb://mongo:27017/tourz-prod-db
       - JWT_AUTH_SECRET=nh7dd4456vhbgkjvdDWQZXMKOY6FDEAmkbZMOPI
   mongo:
-    container_name: buyemall-mongo-db
+    container_name: tourz-mongo
     image: mongo
     restart: always
     volumes:
@@ -32,6 +28,6 @@ services:
     ports:
       - '27017:27017'
   redis:
-    container_name: buyemall-redis-db
+    container_name: tourz-redis
     image: redis
     restart: always

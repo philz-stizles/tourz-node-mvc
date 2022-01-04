@@ -82,12 +82,12 @@ app.use(
 //   webhookCheckout
 // );
 
-// Security - SQL Injection ***************************************************************************************** |
+// Security - SQL Injection ***************************************************************************** |
 // Data sanitization against NoSQL query injection. |
 app.use(mongoSanitize()); // It will look at the req.body, req.query and req.params, and basically
 // filter out all of the dollar($) signs and dots(.) in the values
 
-// Security - Cross Site Scripting(XSS) **************************************************************************************** |
+// Security - Cross Site Scripting(XSS) ***************************************************************** |
 // Data sanitization against XSS - cross site scripting. |
 app.use(xss()); // This would clean any user input from malicious html code
 
@@ -98,18 +98,18 @@ app.use(xss()); // This would clean any user input from malicious html code
 //   })
 // );
 
-// Request body parsing ******************************************************************************* |
+// Request body parsing ********************************************************************************* |
 app.use(express.json({ limit: '5mb' })); // This would limit the body size to 10kb
 app.use(express.urlencoded({ extended: true, limit: '5mb' })); // This would limit the body size to 10kb
 app.use(cookieParser()); // Parses data from cookies
 
-// Compression **************************************************************************************** |
+// Compression ****************************************************************************************** |
 app.use(compression());
 
-// MVC View Routes ************************************************************************************ |
+// MVC View Routes ************************************************************************************** |
 app.use('/', require('./routes/view.routes'));
 
-// API Resource Routes ******************************************************************************** |
+// API Resource Routes ********************************************************************************** |
 const api = process.env.API_ROOT ? process.env.API_ROOT : '';
 const version = process.env.API_VERSION ? process.env.API_VERSION : '';
 
@@ -119,14 +119,14 @@ app.use(`${api}${version}/tours`, tourRoutes);
 app.use(`${api}${version}/reviews`, reviewRoutes);
 app.use(`${api}${version}/bookings`, bookingRoutes);
 
-// API Documentation ********************************************************************************** |
+// API Documentation ************************************************************************************ |
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-// Handle Unknown Routes -  *************************************************************************** |
+// Handle Unknown Routes -  ***************************************************************************** |
 // i.e routes that are not caught by any routers, but exclude all graphql routes at the server layer.
 app.all(/^\/(?!graphql).*/, notFoundHandler);
 
-// Global Error Handling ****************************************************************************** |
+// Global Error Handling ******************************************************************************** |
 app.use(globalErrorHandler);
 
 export default app;
